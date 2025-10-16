@@ -1,24 +1,24 @@
 package es.upsa.programacion.Modelos;
 
+import java.util.Objects;
+
 public class Vuelo {
 
     private String idVuelo;
-    private String Salida;
-    private String Destino;
-    private String Fecha;
-    private Integer Asientos;
-    private Float Precio;
-    private Integer Disponibles;
+    private String salida;
+    private String destino;
+    private String fecha;
+    private Float precio;
+    private Integer disponibles;
 
 
-    public Vuelo(String idVuelo, String salida, String destino, String fecha, Integer asientos, Float precio, Integer disponibles) {
+    public Vuelo(String idVuelo, String salida, String destino, String fecha, Float precio, Integer disponibles) {
         this.idVuelo = idVuelo;
-        this.Salida = salida;
-        this.Destino = destino;
-        this.Fecha = fecha;
-        this.Asientos = asientos;
-        this.Precio = precio;
-        this.Disponibles = disponibles;
+        this.salida = salida;
+        this.destino = destino;
+        this.fecha = fecha;
+        this.precio = precio;
+        this.disponibles = disponibles;
     }
 
     public String getIdVuelo() {
@@ -27,49 +27,61 @@ public class Vuelo {
     public void setIdVuelo(String idVuelo) {
         this.idVuelo = idVuelo;
     }
-    public String getSalida() {
-        return Salida;
+    public String getsalida() {
+        return salida;
     }
-    public void setSalida(String salida) {
-        this.Salida = salida;
+    public void setsalida(String salida) {
+        this.salida = salida;
     }
-    public String getDestino() {
-        return Destino;
+    public String getdestino() {
+        return destino;
     }
-    public void setDestino(String destino) {
-        this.Destino = destino;
+    public void setdestino(String destino) {
+        this.destino = destino;
     }
-    public String getFecha() {
-        return Fecha;
+    public String getfecha() {
+        return fecha;
     }
-    public void setFecha(String fecha) {
-        this.Fecha = fecha;
+    public void setfecha(String fecha) {
+        this.fecha = fecha;
     }
-    public Integer getAsientos() {
-        return Asientos;
+
+    public Float getprecio() {
+        return precio;
     }
-    public void setAsientos(Integer asientos) {
-        this.Asientos = asientos;
+    public void setprecio(Float precio) {
+        this.precio = precio;
     }
-    public Float getPrecio() {
-        return Precio;
+    public Integer getdisponibles() {
+        return disponibles;
     }
-    public void setPrecio(Float precio) {
-        this.Precio = precio;
+    public void setdisponibles(Integer disponibles) {
+        this.disponibles = disponibles;
     }
-    public Integer getDisponibles() {
-        return Disponibles;
-    }
-    public void setDisponibles(Integer disponibles) {
-        this.Disponibles = disponibles;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vuelo vuelo)) return false;
+        return Objects.equals(idVuelo, vuelo.idVuelo);
     }
 
 
     @Override
     public String toString() {
-        return "Vuelo{" + "idVuelo=" + idVuelo +"}" ;
+        return "Vuelo{" +
+                "idVuelo='" + idVuelo + '\'' +
+                ", salida='" + salida + '\'' +
+                ", destino='" + destino + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", precio=" + precio +
+                ", disponibles=" + disponibles +
+                '}';
     }
 
+
+    @Override
+    public int hashCode() { return Objects.hash(idVuelo); }
 
 
 }
