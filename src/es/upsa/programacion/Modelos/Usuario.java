@@ -1,5 +1,8 @@
 package es.upsa.programacion.Modelos;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Usuario {
     private String idUser;
     private String nombre;
@@ -7,14 +10,16 @@ public class Usuario {
     private String password;
     private String email;
     private Boolean admin;
+    private ArrayList<Vuelo> reservados;
 
-    public Usuario(String idUser, String nombre, String dni, String password, String email, Boolean admin) {
+    public Usuario(String idUser, String nombre, String dni, String password, String email, Boolean admin, ArrayList<Vuelo> reservados) {
         this.idUser = idUser;
         this.nombre = nombre;
         this.dni = dni;
         this.password = password;
         this.email = email;
-        this.admin = admin;//Se asigna directamente a no con nuevos usuarios, solo se le permite cambiar a un admin.
+        this.admin = false;//Se asigna directamente a no con nuevos usuarios, solo se le permite cambiar a un admin.
+        this.reservados = new ArrayList<>();
     }
 
     public String getIdUser() {
@@ -54,5 +59,36 @@ public class Usuario {
     public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
+    public ArrayList<Vuelo> getReservados() {return reservados;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        return Objects.equals(idUser, ((Usuario) o).idUser);
+    }
+    @Override
+    public int hashCode() {return Objects.hashCode(idUser);}
+
+    @Override
+    public String toString() {
+        //Caso 1: El usuario con dni x no tiene ningún vuelo asociado
+        if (reservados.isEmpty()) {
+            return nombre + " (" + dni + "): con ningún vuelo asociado";
+        } else {
+            //Caso 2: El usuario tiene uno o más vuelos asociados
+            String resultado = nombre + " (" + dni + "): ";
+            for (int i = 0; i < reservados.size(); i++) {
+                Vuelo vuelo = reservados.get(i);
+                resultado = resultado + vuelo.getIdVuelo() + " (" +
+                        vuelo.getSalida() + "→" + vuelo.getDestino() +
+                        ", fecha " + vuelo.getFecha() + ")";
+
+                if (i < reservados.size() - 1) {
+                    resultado = resultado + ", ";
+                }
+            }
+            return resultado;
+        }
+    }
 }
