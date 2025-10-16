@@ -7,15 +7,18 @@ public class Vuelo {
     private String Destino;
     private String Fecha;
     private Integer Asientos;
+    private Float Precio;
     private Integer Disponibles;
 
 
-    public Vuelo(String idVuelo, String salida, String destino, String fecha, Integer asientos) {
+    public Vuelo(String idVuelo, String salida, String destino, String fecha, Integer asientos, Float precio, Integer disponibles) {
         this.idVuelo = idVuelo;
         this.Salida = salida;
         this.Destino = destino;
         this.Fecha = fecha;
-        this.Asientos = asientos ;
+        this.Asientos = asientos;
+        this.Precio = precio;
+        this.Disponibles = disponibles;
     }
 
     public String getIdVuelo() {
@@ -47,6 +50,18 @@ public class Vuelo {
     }
     public void setAsientos(Integer asientos) {
         this.Asientos = asientos;
+    }
+    public Float getPrecio() {
+        return Precio;
+    }
+    public void setPrecio(Float precio) {
+        this.Precio = precio;
+    }
+    public Integer getDisponibles() {
+        return Disponibles;
+    }
+    public void setDisponibles(Integer disponibles) {
+        this.Disponibles = disponibles;
     }
 
 
