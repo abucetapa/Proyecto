@@ -8,11 +8,11 @@ public class Vuelo {
     private String salida;
     private String destino;
     private String fecha;
-    private Float precio;
+    private Double precio;
     private Integer disponibles;
 
 
-    public Vuelo(String idVuelo, String salida, String destino, String fecha, Float precio, Integer disponibles) {
+    public Vuelo(String idVuelo, String salida, String destino, String fecha, Double precio, Integer disponibles) {
         this.idVuelo = idVuelo;
         this.salida = salida;
         this.destino = destino;
@@ -46,10 +46,10 @@ public class Vuelo {
         this.fecha = fecha;
     }
 
-    public Float getprecio() {
+    public Double getprecio() {
         return precio;
     }
-    public void setprecio(Float precio) {
+    public void setprecio(Double precio) {
         this.precio = precio;
     }
     public Integer getdisponibles() {
@@ -74,8 +74,8 @@ public class Vuelo {
                 ", salida='" + salida + '\'' +
                 ", destino='" + destino + '\'' +
                 ", fecha='" + fecha + '\'' +
-                ", precio=" + precio +
-                ", disponibles=" + disponibles +
+                ", precio = " + precio +
+                "€, disponibles=" + disponibles +
                 '}';
     }
 

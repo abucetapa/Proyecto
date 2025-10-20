@@ -9,16 +9,18 @@ public class Usuario {
     private String dni;
     private String password;
     private String email;
+    private String telefono;
     private Boolean admin;
     private ArrayList<Vuelo> reservados;
 
-    public Usuario(String idUser, String nombre, String dni, String password, String email, Boolean admin, ArrayList<Vuelo> reservados) {
+    public Usuario(String idUser, String nombre, String dni, String password, String email, String telefono, Boolean admin) {
         this.idUser = idUser;
         this.nombre = nombre;
         this.dni = dni;
         this.password = password;
         this.email = email;
-        this.admin = false;//Se asigna directamente a no con nuevos usuarios, solo se le permite cambiar a un admin.
+        this.telefono = telefono;
+        this.admin = admin;//Se asigna directamente a no con nuevos usuarios, solo se le permite cambiar a un admin.
         this.reservados = new ArrayList<>();
     }
 
@@ -49,6 +51,12 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
+    public String getTelefono() {
+        return telefono;
+    }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
     public void setEmail(String email) {
         this.email = email;
     }
@@ -74,15 +82,15 @@ public class Usuario {
     public String toString() {
         //Caso 1: El usuario con dni x no tiene ningún vuelo asociado
         if (reservados.isEmpty()) {
-            return nombre + " (" + dni + "): con ningún vuelo asociado";
+            return nombre + " id:" + idUser + " (" + dni + "): con ningún vuelo asociado";
         } else {
             //Caso 2: El usuario tiene uno o más vuelos asociados
             String resultado = nombre + " (" + dni + "): ";
             for (int i = 0; i < reservados.size(); i++) {
                 Vuelo vuelo = reservados.get(i);
                 resultado = resultado + vuelo.getIdVuelo() + " (" +
-                        vuelo.getSalida() + "→" + vuelo.getDestino() +
-                        ", fecha " + vuelo.getFecha() + ")";
+                        vuelo.getsalida() + "→" + vuelo.getdisponibles() +
+                        ", fecha " + vuelo.getfecha() + ")";
 
                 if (i < reservados.size() - 1) {
                     resultado = resultado + ", ";
