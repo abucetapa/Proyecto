@@ -2,6 +2,7 @@ package es.upsa.programacion.Controladores;
 
 import es.upsa.programacion.Modelos.Agencia;
 import es.upsa.programacion.Modelos.Vuelo;
+import es.upsa.programacion.Modelos.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class VueloController {
     private List<Vuelo> vuelos;
     private Agencia agencia;
+    private Usuario usuario;
 
     public VueloController(Agencia agencia) {
         this.agencia = agencia;
@@ -93,18 +95,7 @@ public class VueloController {
         System.out.println("Vuelo no encontrado.");
         return false;
     }
-    public void reservaAsiento(String idVuelo){
-        Vuelo vuelo = buscarVueloId(idVuelo);
 
-        if(vuelo.getdisponibles() > 0){
-            vuelo.setdisponibles(vuelo.getdisponibles() - 1);  // ← Aquí restas 1
-            System.out.println("Asiento reservado. Asientos disponibles: " + vuelo.getdisponibles());
-
-        } else {
-            System.out.println("No hay asientos disponibles.");
-
-        }
-    }
 
     public int mostrarVuelos(){
         System.out.println("**Vuelos**");

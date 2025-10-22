@@ -1,19 +1,27 @@
 package es.upsa.programacion.Vista;
 
+import es.upsa.programacion.Controladores.UsuarioController;
 import es.upsa.programacion.Controladores.VueloController;
 import es.upsa.programacion.Modelos.Agencia;
 import es.upsa.programacion.Modelos.Vuelo;
+import es.upsa.programacion.Modelos.Usuario;
+import es.upsa.programacion.Menu;
+import es.upsa.programacion.Controladores.VueloController;
 
 import java.util.Scanner;
 
 public class VistaVuelo {
     private Agencia agencia;
+    private Usuario usuario;
     private VueloController vueloController;
+    private UsuarioController usuarioController;
+    private Menu menu;
     Scanner sc = new Scanner(System.in);
 
     public VistaVuelo(Agencia agencia) {
         this.agencia = agencia;
         this.vueloController = new VueloController(agencia);
+        this.usuarioController = new UsuarioController(agencia);
     }
 
 
@@ -83,10 +91,26 @@ public class VistaVuelo {
         Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo);
 
         if(vueloEncontrado == null){
+
             return -1;
         }else {
             System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado.toString());
             return 0;
+        }
+
+    }
+
+    public Vuelo buscarVueloVistaObjeto(){
+        System.out.println("Buscar vuelo por id:");
+        String idVuelo = sc.nextLine();
+
+        Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo);
+
+        if(vueloEncontrado == null){
+            return null;
+        }else {
+            System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado.toString());
+            return vueloEncontrado;
         }
 
     }
@@ -125,6 +149,20 @@ public class VistaVuelo {
         } else {
             return -2;
         }
-
     }
+    public int reservaAsiento(Usuario usuario,String idVuelo){
+        Vuelo vuelo = vueloController.buscarVueloId(idVuelo);
+
+        if(vuelo.getdisponibles() > 0){
+            if(usuarioController.añadirVueloReservado(usuario.getIdUser(),vuelo)){
+                System.out.println("Vuelo Reservado correctamente.");
+                return 0;
+            }
+            return -7;
+
+        }
+        return -8;
+    }
+
+
 }

@@ -78,7 +78,7 @@ public class VistaUsuario {
 
         String idUser = generarNuevoId();
 
-        Usuario usuario = new Usuario(idUser, nombre, dni, password, email, telefono,null);
+        Usuario usuario = new Usuario(idUser, nombre, dni, password, email, telefono,false);
 
         boolean usuarioAñadido = usuarioController.addUsuario(usuario);
 
@@ -126,5 +126,40 @@ public class VistaUsuario {
             return 0;
         }
 
+    }
+
+    public Usuario iniciarSesion(){
+        System.out.println("**Iniciar Sesion**");
+        sc = new Scanner(System.in);
+
+        System.out.println("Inserte dni:");
+        String dni = sc.nextLine();
+
+        Usuario usuario = usuarioController.buscarUsuarioDni(dni);
+
+        if(usuario != null) {
+            System.out.println("Inserte su contraseña:");
+            String contraseña = sc.nextLine();
+
+            if(contraseña.equals(usuario.getPassword())){
+                System.out.println("Sesion iniciado correctamente.");
+                return usuario;
+            }else System.out.println("Contraseña incorrecta:");
+        }
+
+        return null;
+    }
+
+    public int mostrarMisBilletes(Usuario usuario){
+        if(usuario == null) return -5;
+        if(usuario.getReservados().isEmpty()) {
+            return -9;
+        } else {
+            System.out.println("Tus vuelos reservados:");
+            for(Vuelo v : usuario.getReservados()) {
+                System.out.println("- " + v.toString());
+            }
+            return 0;
+        }
     }
 }

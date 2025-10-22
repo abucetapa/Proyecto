@@ -1,5 +1,6 @@
 package es.upsa.programacion;
 
+import es.upsa.programacion.Controladores.UsuarioController;
 import es.upsa.programacion.Controladores.VueloController;
 import es.upsa.programacion.Modelos.Agencia;
 import es.upsa.programacion.Modelos.Usuario;
@@ -16,7 +17,6 @@ public class Menu {
     private VistaVuelo vistaVuelo;
     private VistaUsuario vistaUsuario;
     private VueloController vueloController;
-    private Usuario usuario;
 
     public Menu(Agencia agencia){
         this.agencia = agencia;
@@ -30,11 +30,11 @@ public class Menu {
     }
 
     public void mostrarMenu(Usuario usuario){
+        System.out.println("\n***MENU***");
 
         if(usuario==null){
             mostrarMenuLogOut();
         }else{
-
             if(usuario.getAdmin()==true){
                 mostrarMenuAdmin(usuario);
             }else mostrarMenuLogIn(usuario);
@@ -66,7 +66,10 @@ public class Menu {
                     this.error(vueloController.mostrarVuelos());
                     break;
                 case 3:
-                    //this.error(vistaUsuario.inicioSesion());
+                    Usuario usuario = vistaUsuario.iniciarSesion();
+                    if(usuario != null) {
+                        mostrarMenu(usuario);
+                    }else this.error(-3);
                     break;
                 case 4:
                     this.error(vistaUsuario.addUsuarioVista());
@@ -90,7 +93,6 @@ public class Menu {
         int opcion;
 
         do {
-            System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Mis billetes");
             System.out.println("3. Perfil");
@@ -103,11 +105,14 @@ public class Menu {
             switch (opcion) {
                 case 1:
                     System.out.println("Ingrese el id del vuelo");
-                    this.error(vistaVuelo.buscarVueloVista());
+                    Vuelo vuelo = vistaVuelo.buscarVueloVistaObjeto();
+                    if(vuelo!=null){
+                        menuVuelo(usuario, vuelo);
+                    }else this.error(-1);
                     break;
                 case 2:
                     System.out.println("**MIS BILLETES**");
-                    //Funcion de UsuarioController que muestra lista de billetes del usuario
+                    vistaUsuario.mostrarMisBilletes(usuario);
                     break;
                 case 3:
                     //Funcion modificarDatosUsuario
@@ -130,7 +135,7 @@ public class Menu {
         int opcion;
 
         do{
-            System.out.println("\n***MENU***");
+
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Añadir vuelo");
             System.out.println("3. Modificar vuelo");
@@ -150,13 +155,12 @@ public class Menu {
                     this.error(vistaVuelo.addVueloVista());
                     break;
                 case 3:
-                    //Funcion modificarVuelo
+                    this.error(vistaVuelo.modificarVueloMenu());
                     break;
                 case 4:
                     //Funcion eliminarVuelo
                     break;
                 case 5:
-                    boolean logIn = false;
                     mostrarMenu(usuario);
                     break;
                 case 0:
@@ -168,6 +172,29 @@ public class Menu {
             }
         }while(opcion != 0);
 
+    }
+
+    public void menuVuelo(Usuario usuario, Vuelo vuelo){
+        System.out.println("Acciones vuelo:");
+        System.out.println("1. Reservar vuelo.");
+        System.out.println("3. Consultar disponibilidad.");
+
+        int accion = sc.nextInt();
+
+        switch (accion) {
+            case 1:
+                this.error(vistaVuelo.reservaAsiento(usuario,vuelo.getIdVuelo()));
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Opcion no valida");
+                break;
+        }
     }
 
     public void error(int codigoError){
@@ -190,6 +217,13 @@ public class Menu {
                 System.out.println("ERROR. No se ha podido registrar el usuario.");
                 break;
             case -7:
+                System.out.println("ERROR. No se ha podido reservar el vuelo.");
+                break;
+            case -8:
+                System.out.println("ERROR. El vuelo esta completo.");
+                break;
+            case -9:
+                System.out.println("ERROR. Usuario no encontrado");
                 break;
             case 0:
                 break;

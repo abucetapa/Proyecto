@@ -8,7 +8,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Usuario usuario= null;
+        Usuario usuario = null;
 
         Agencia miAgencia = Constructor.inicializarAgencia();
         System.out.println("Usuarios cargados: " + miAgencia.getUsuarios().size());

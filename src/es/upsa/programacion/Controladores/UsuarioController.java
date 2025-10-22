@@ -2,6 +2,7 @@ package es.upsa.programacion.Controladores;
 
 import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Modelos.Agencia;
+import es.upsa.programacion.Modelos.Vuelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +32,35 @@ public class UsuarioController {
         }
         return null;
     }
+
+    public Usuario buscarUsuarioDni(String dni){
+        for(Usuario usuario : usuarios){
+            if(usuario.getDni().equals(dni)){
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public boolean añadirVueloReservado(String idUsuario, Vuelo vuelo){
+        Usuario usuario = buscarUsuarioId(idUsuario);
+
+        if(usuario == null || vuelo == null) {
+            return false;
+        }
+
+        if(vuelo.getdisponibles() <= 0) {
+            return false;
+        }
+
+        if(usuario.getReservados().contains(vuelo)) {
+            return false;
+        }
+        usuario.getReservados().add(vuelo);
+        vuelo.setdisponibles(vuelo.getdisponibles() - 1);
+
+        return true;
+    }
+
 
 }
