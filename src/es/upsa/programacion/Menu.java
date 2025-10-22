@@ -30,7 +30,6 @@ public class Menu {
     }
 
     public void mostrarMenu(Usuario usuario){
-        System.out.println("\n***MENU***");
 
         if(usuario==null){
             mostrarMenuLogOut();
@@ -48,6 +47,7 @@ public class Menu {
         int opcion;
 
         do {
+            System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Mostrar vuelos");
             System.out.println("3. Iniciar sesion");
@@ -56,7 +56,11 @@ public class Menu {
             System.out.println("5. Mostrar usuarios");
             System.out.println("0. Salir");
 
-            opcion = sc.nextInt();
+            try {
+                opcion = Integer.parseInt(sc.nextLine()); // ← CAMBIO AQUÍ
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
 
             switch (opcion) {
                 case 1:
@@ -84,7 +88,6 @@ public class Menu {
                     break;
 
             }
-            sc.nextLine();
         }while(opcion != 0);
 
     }
@@ -93,6 +96,7 @@ public class Menu {
         int opcion;
 
         do {
+            System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Mis billetes");
             System.out.println("3. Perfil");
@@ -100,7 +104,11 @@ public class Menu {
             System.out.println("0. Salir");
 
 
-            opcion = sc.nextInt();
+            try {
+                opcion = Integer.parseInt(sc.nextLine()); // ← CAMBIO AQUÍ
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
 
             switch (opcion) {
                 case 1:
@@ -118,8 +126,8 @@ public class Menu {
                     //Funcion modificarDatosUsuario
                     break;
                 case 4:
-                    usuario = null;
-                    mostrarMenu(usuario);
+                    System.out.println("Cerrando sesión.......");
+                    mostrarMenu(null);
                     break;
                 case 0:
                     break;
@@ -132,10 +140,10 @@ public class Menu {
     }
 
     public void mostrarMenuAdmin(Usuario usuario){
-        int opcion;
+        int opcion = -100;
 
         do{
-
+            System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Añadir vuelo");
             System.out.println("3. Modificar vuelo");
@@ -143,8 +151,13 @@ public class Menu {
             System.out.println("5. Cerrar sesion");
             System.out.println("0. Salir");
 
+            try {
+                opcion = Integer.parseInt(sc.nextLine()); // ← CAMBIO AQUÍ
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debe introducir un número.");
+                continue;
+            }
 
-            opcion = sc.nextInt();
             switch (opcion) {
                 case 1:
                     System.out.println("Ingrese el id del vuelo");
@@ -155,13 +168,15 @@ public class Menu {
                     this.error(vistaVuelo.addVueloVista());
                     break;
                 case 3:
+                    vueloController.mostrarVuelos();
                     this.error(vistaVuelo.modificarVueloMenu());
                     break;
                 case 4:
                     //Funcion eliminarVuelo
                     break;
                 case 5:
-                    mostrarMenu(usuario);
+                    System.out.println("Cerrando sesión.......");
+                    mostrarMenu(null);
                     break;
                 case 0:
                     break;

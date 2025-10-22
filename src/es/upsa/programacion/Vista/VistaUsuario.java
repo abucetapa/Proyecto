@@ -20,22 +20,7 @@ public class VistaUsuario {
         this.usuarios = agencia.getUsuarios();
     }
 
-    public Usuario buscarUsuarioVista(String idUsuario) {
-        Usuario usuarioEncontrado = usuarioController.buscarUsuarioId(idUsuario);
 
-        if (usuarioEncontrado == null) {
-            return null;
-        } else {
-            System.out.print("Ingrese su contraseña: ");
-            String password = sc.nextLine();
-
-            if(usuarioEncontrado.getPassword().equals(password)){
-                return usuarioEncontrado;
-            } else {
-                return null;
-            }
-        }
-    }
 
     public int addUsuarioVista() {
         System.out.println("**Registrarse**");
@@ -45,7 +30,7 @@ public class VistaUsuario {
         while (dni.isEmpty()) {
             System.out.println("Ingrese su DNI:");
             dni = sc.nextLine().trim();
-            if (dni.isEmpty()) System.out.println("⚠️ Campo obligatorio. Por favor, ingrese un DNI válido.");
+            if (dni.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un DNI válido.");
         }
 
         String nombre = "";
@@ -130,12 +115,22 @@ public class VistaUsuario {
 
     public Usuario iniciarSesion(){
         System.out.println("**Iniciar Sesion**");
-        sc = new Scanner(System.in);
 
-        System.out.println("Inserte dni:");
-        String dni = sc.nextLine();
+        Usuario usuario = null;
 
-        Usuario usuario = usuarioController.buscarUsuarioDni(dni);
+        System.out.println("Inserte dni, email o teléfono:");
+        String inicioSesion = sc.nextLine();
+
+        if(usuarioController.buscarUsuarioDni(inicioSesion) != null){
+            usuario = usuarioController.buscarUsuarioDni(inicioSesion);
+        }else if(usuarioController.buscarUsuarioEmail(inicioSesion) != null){
+            usuario = usuarioController.buscarUsuarioEmail(inicioSesion);
+        }else if(usuarioController.buscarUsuarioTelefono(inicioSesion) != null){
+            usuario = usuarioController.buscarUsuarioTelefono(inicioSesion);
+        }
+
+
+
 
         if(usuario != null) {
             System.out.println("Inserte su contraseña:");

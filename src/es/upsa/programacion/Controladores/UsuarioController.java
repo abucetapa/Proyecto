@@ -32,6 +32,23 @@ public class UsuarioController {
         }
         return null;
     }
+    public Usuario buscarUsuarioEmail(String email){
+        for(Usuario usuario : usuarios){
+            if(usuario.getEmail().equals(email)){
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public Usuario buscarUsuarioTelefono(String telefono){
+        for(Usuario usuario : usuarios){
+            if(usuario.getTelefono().equals(telefono)){
+                return usuario;
+            }
+        }
+        return null;
+    }
 
     public Usuario buscarUsuarioDni(String dni){
         for(Usuario usuario : usuarios){
