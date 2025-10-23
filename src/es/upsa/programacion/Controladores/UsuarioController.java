@@ -17,12 +17,16 @@ public class UsuarioController {
         this.usuarios = agencia.getUsuarios();
     }
 
+    // Añadir usuario
+
     public boolean addUsuario(Usuario usuario){
         if(usuario.getIdUser() != null && usuario.getDni() != null && usuario.getNombre() != null && usuario.getEmail() != null && usuario.getPassword() != null && usuario.getTelefono() != null){
             usuarios.add(usuario);
             return true;
         }else return false;
     }
+
+    // Busqueda usuario por id, dni, email y telefono
 
     public Usuario buscarUsuarioId(String idUsuario){
         for(Usuario usuario : usuarios){
@@ -59,10 +63,12 @@ public class UsuarioController {
         return null;
     }
 
-    public boolean añadirVueloReservado(String idUsuario, Vuelo vuelo){
-        Usuario usuario = buscarUsuarioId(idUsuario);
+    // Añadrir vuelo a las reservas del usuario
 
-        if(usuario == null || vuelo == null) {
+    public boolean añadirVueloReservado(String idUsuario, Vuelo vuelo){
+        Usuario cliente = buscarUsuarioId(idUsuario);
+
+        if(cliente == null || vuelo == null) {
             return false;
         }
 
@@ -70,10 +76,10 @@ public class UsuarioController {
             return false;
         }
 
-        if(usuario.getReservados().contains(vuelo)) {
+        if(cliente.getReservados().contains(vuelo)) {
             return false;
         }
-        usuario.getReservados().add(vuelo);
+        cliente.getReservados().add(vuelo);
         vuelo.setdisponibles(vuelo.getdisponibles() - 1);
 
         return true;
