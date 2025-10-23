@@ -2,6 +2,7 @@ package es.upsa.programacion;
 
 import es.upsa.programacion.Controladores.UsuarioController;
 import es.upsa.programacion.Controladores.VueloController;
+import es.upsa.programacion.Modelos.Administrador;
 import es.upsa.programacion.Modelos.Agencia;
 import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Modelos.Vuelo;
@@ -34,7 +35,7 @@ public class Menu {
         if(usuario==null){
             mostrarMenuLogOut();
         }else{
-            if(usuario.getAdmin()==true){
+            if(usuario instanceof Administrador){
                 mostrarMenuAdmin(usuario);
             }else mostrarMenuLogIn(usuario);
         }
@@ -120,7 +121,7 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("**MIS BILLETES**");
-                    vistaUsuario.mostrarMisBilletes(usuario);
+                    this.error(vistaUsuario.mostrarMisBilletes(usuario));
                     break;
                 case 3:
                     //Funcion modificarDatosUsuario
@@ -136,6 +137,7 @@ public class Menu {
                     break;
 
             }
+
         }while(opcion != 0);
     }
 
@@ -190,11 +192,18 @@ public class Menu {
     }
 
     public void menuVuelo(Usuario usuario, Vuelo vuelo){
+        int accion;
+
         System.out.println("Acciones vuelo:");
         System.out.println("1. Reservar vuelo.");
-        System.out.println("3. Consultar disponibilidad.");
-
-        int accion = sc.nextInt();
+        System.out.println("2. Consultar disponibilidad.");
+        System.out.println("3. Cancelar.");
+        try {
+            accion = Integer.parseInt(sc.nextLine()); // ← CAMBIO AQUÍ
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debe introducir un número.");
+            accion = -100;
+        }
 
         switch (accion) {
             case 1:
@@ -203,6 +212,7 @@ public class Menu {
             case 2:
                 break;
             case 3:
+                mostrarMenuLogIn(usuario);
                 break;
             case 0:
                 break;

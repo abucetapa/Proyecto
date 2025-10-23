@@ -34,5 +34,10 @@ public abstract class Usuario {
     @Override
     public int hashCode() {return Objects.hashCode(idUser);}
 
+    @Override
+    public String toString() {
+        return "{idUser: " +idUser +", password: "+ password +"}";
+    }
+
 
 }

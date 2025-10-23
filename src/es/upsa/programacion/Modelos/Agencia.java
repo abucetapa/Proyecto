@@ -25,17 +25,30 @@ public class Agencia {
     //funcion añadirVuelo
     //funcion añadirUsuario
 
-    public int addUsuario(String idUser, String nombre, String dni, String password, String email, String telefono, boolean admin){
-        Usuario nuevoUsuario = new Usuario(idUser, nombre, dni, password, email, telefono, admin);
+    public int addUsuario(String idUser, String nombre, String dni, String password, String email, String telefono){
 
-        if(usuarios.contains(nuevoUsuario)){
+        Cliente nuevoCliente = new Cliente(idUser, nombre, dni, password, email, telefono);
+
+        if(usuarios.contains(nuevoCliente)){
             return -4;
         }else{
-            usuarios.add(nuevoUsuario);
+            usuarios.add(nuevoCliente);
             return 0;
         }
 
     }
+
+    public int addAdmin(String idUser, String password){
+        Administrador administrador = new Administrador(idUser, password);
+        if(usuarios.contains(administrador)){
+            return -4;
+        }else {
+            usuarios.add(administrador);
+            return 0;
+        }
+    }
+
+
 
     public int addVuelo(String idVuelo, String salida, String destino, String fecha, Double precio, Integer disponibles){
         Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);

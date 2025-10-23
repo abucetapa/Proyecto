@@ -1,8 +1,6 @@
 package es.upsa.programacion.Controladores;
 
-import es.upsa.programacion.Modelos.Usuario;
-import es.upsa.programacion.Modelos.Agencia;
-import es.upsa.programacion.Modelos.Vuelo;
+import es.upsa.programacion.Modelos.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,44 +18,62 @@ public class UsuarioController {
     // Añadir usuario
 
     public boolean addUsuario(Usuario usuario){
-        if(usuario.getIdUser() != null && usuario.getDni() != null && usuario.getNombre() != null && usuario.getEmail() != null && usuario.getPassword() != null && usuario.getTelefono() != null){
+        Usuario u = buscarClienteId(usuario.getIdUser());
+        if(u == null) {
             usuarios.add(usuario);
             return true;
-        }else return false;
+        }return false;
     }
 
     // Busqueda usuario por id, dni, email y telefono
 
-    public Usuario buscarUsuarioId(String idUsuario){
+    public Cliente buscarClienteId(String idUsuario){
         for(Usuario usuario : usuarios){
             if(usuario.getIdUser().equals(idUsuario)){
-                return usuario;
+                return (Cliente) usuario;
             }
         }
         return null;
     }
-    public Usuario buscarUsuarioEmail(String email){
+    public Cliente buscarClienteEmail(String email){
         for(Usuario usuario : usuarios){
-            if(usuario.getEmail().equals(email)){
-                return usuario;
-            }
-        }
-        return null;
-    }
-
-    public Usuario buscarUsuarioTelefono(String telefono){
-        for(Usuario usuario : usuarios){
-            if(usuario.getTelefono().equals(telefono)){
-                return usuario;
+            if(usuario instanceof Cliente cliente) {
+                if (cliente.getEmail().equals(email)){
+                    return cliente;
+                }
             }
         }
         return null;
     }
 
-    public Usuario buscarUsuarioDni(String dni){
+    public Cliente buscarClienteTelefono(String telefono){
         for(Usuario usuario : usuarios){
-            if(usuario.getDni().equals(dni)){
-                return usuario;
+            if(usuario instanceof Cliente cliente) {
+                if (cliente.getTelefono().equals(telefono)){
+                    return cliente;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Cliente buscarClienteDni(String dni){
+        for(Usuario usuario : usuarios){
+            if(usuario instanceof Cliente cliente) {
+                if (cliente.getDni().equals(dni)){
+                    return cliente;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Administrador buscarAdminId(String idUsuario){
+        for(Usuario usuario : usuarios){
+            if(usuario instanceof Administrador administrador) {
+                if (administrador.getIdUser().equals(idUsuario)){
+                    return administrador;
+                }
             }
         }
         return null;
@@ -66,7 +82,7 @@ public class UsuarioController {
     // Añadrir vuelo a las reservas del usuario
 
     public boolean añadirVueloReservado(String idUsuario, Vuelo vuelo){
-        Usuario cliente = buscarUsuarioId(idUsuario);
+        Cliente cliente = buscarClienteId(idUsuario);
 
         if(cliente == null || vuelo == null) {
             return false;
@@ -76,6 +92,7 @@ public class UsuarioController {
             return false;
         }
 
+
         if(cliente.getReservados().contains(vuelo)) {
             return false;
         }
@@ -84,6 +101,8 @@ public class UsuarioController {
 
         return true;
     }
+
+
 
 
 }
