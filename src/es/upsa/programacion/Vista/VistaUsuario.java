@@ -2,6 +2,7 @@ package es.upsa.programacion.Vista;
 
 import es.upsa.programacion.Controladores.UsuarioController;
 import es.upsa.programacion.Modelos.Agencia;
+import es.upsa.programacion.Modelos.Cliente;
 import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Modelos.Vuelo;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class VistaUsuario {
     private UsuarioController usuarioController;
-    Scanner sc = new Scanner(System.in);
+    Scanner sc;
     private Agencia agencia;
     private List<Usuario> usuarios;
 
@@ -18,6 +19,7 @@ public class VistaUsuario {
         this.agencia = agencia;
         this.usuarioController = new UsuarioController(agencia);
         this.usuarios = agencia.getUsuarios();
+        this.sc = new Scanner(System.in);
     }
 
 
@@ -63,9 +65,9 @@ public class VistaUsuario {
 
         String idUser = generarNuevoId();
 
-        Usuario usuario = new Usuario(idUser, nombre, dni, password, email, telefono,false);
+        Cliente cliente = new Cliente(idUser, nombre, dni, password, email, telefono);
 
-        boolean usuarioAñadido = usuarioController.addUsuario(usuario);
+        boolean usuarioAñadido = usuarioController.addUsuario(cliente);
 
         if (usuarioAñadido) {
             System.out.println(" Usuario registrado correctamente.");
@@ -116,45 +118,46 @@ public class VistaUsuario {
     public Usuario iniciarSesion(){
         System.out.println("**Iniciar Sesion**");
 
-        Usuario usuario = null;
-
         System.out.println("Inserte dni, email o teléfono:");
         String inicioSesion = sc.nextLine();
 
-        if(usuarioController.buscarUsuarioDni(inicioSesion) != null){
-            usuario = usuarioController.buscarUsuarioDni(inicioSesion);
-        }else if(usuarioController.buscarUsuarioEmail(inicioSesion) != null){
-            usuario = usuarioController.buscarUsuarioEmail(inicioSesion);
-        }else if(usuarioController.buscarUsuarioTelefono(inicioSesion) != null){
-            usuario = usuarioController.buscarUsuarioTelefono(inicioSesion);
-        }
 
+
+        // Buscar usuario (Clientes: DNI, email, teléfono | Admins: solo ID)
+        Usuario usuario = usuarioController.buscarAdminId(inicioSesion);
+        if(usuario == null) usuario = usuarioController.buscarClienteDni(inicioSesion);
+        if(usuario == null) usuario = usuarioController.buscarClienteEmail(inicioSesion);
+        if(usuario == null) usuario = usuarioController.buscarClienteTelefono(inicioSesion);
 
 
 
         if(usuario != null) {
+            System.out.println("Contraseña usuario: " + usuario.getPassword());
             System.out.println("Inserte su contraseña:");
-            String contraseña = sc.nextLine();
+            String password = sc.nextLine();
 
-            if(contraseña.equals(usuario.getPassword())){
+            if(password.equals(usuario.getPassword())) {
                 System.out.println("Sesion iniciado correctamente.");
                 return usuario;
-            }else System.out.println("Contraseña incorrecta:");
+            }
         }
-
         return null;
     }
 
     public int mostrarMisBilletes(Usuario usuario){
-        if(usuario == null) return -5;
-        if(usuario.getReservados().isEmpty()) {
-            return -9;
-        } else {
-            System.out.println("Tus vuelos reservados:");
-            for(Vuelo v : usuario.getReservados()) {
-                System.out.println("- " + v.toString());
+        if(usuario == null) return -9;
+        if(usuario instanceof Cliente cliente){
+            if(cliente.getReservados().isEmpty()) {
+                return -5;
+            } else {
+                System.out.println("Tus vuelos reservados:");
+                for(Vuelo v : cliente.getReservados()) {
+                    System.out.println("- " + v.toString());
+                }
+                return 0;
             }
-            return 0;
         }
+        return 0;
+
     }
 }

@@ -7,8 +7,8 @@ public class Constructor {
     public static Agencia inicializarAgencia(){
         Agencia miAgencia = new Agencia();
 
-        miAgencia.addUsuario("U001","Javier","36473647Y", "12345","javieradmin@gmail.com", "574637363",true);
-        miAgencia.addUsuario("U031","Antonio", "35601443L","asdf","antonio@upsa.es","666343234",false);
+        miAgencia.addAdmin("U001", "12345");
+        miAgencia.addUsuario("U031","Antonio", "35601443L","asdf","antonio@upsa.es","666343234");
 
 
         //Vuelos nacionales -id empieza en V

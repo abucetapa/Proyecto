@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class VueloController {
     private List<Vuelo> vuelos;
     private Agencia agencia;
-    private Usuario usuario;
 
     public VueloController(Agencia agencia) {
         this.agencia = agencia;
@@ -42,31 +41,24 @@ public class VueloController {
     public boolean modificarVuelo(String idVuelo, String salida, String destino,
                                   String fecha, Float precio, Integer disponibles){
 
-        if (idVuelo == null || idVuelo.isEmpty()) {
-            System.out.println("ID de vuelo inválido.");
-            return false;
-        }
+
 
         Vuelo vueloExiste = buscarVueloId(idVuelo);
-
-        if(vueloExiste == null){
-            System.out.println("Vuelo no encontrado.");
-            return false;
+        if(idVuelo.isEmpty()) {
+            vueloExiste.setIdVuelo(idVuelo);
         }
 
-        if(idVuelo != null && !idVuelo.isEmpty()){
-            vueloExiste.setIdVuelo(salida);
-        }
+
         // Solo modifica si el valor no es nulo o vacío
-        if(salida != null && !salida.isEmpty()){
+        if(!salida.isEmpty()){
             vueloExiste.setsalida(salida);
         }
 
-        if(destino != null && !destino.isEmpty()){
+        if(!destino.isEmpty()){
             vueloExiste.setdestino(destino);
         }
 
-        if(fecha != null && !fecha.isEmpty()){
+        if(!fecha.isEmpty()){
             vueloExiste.setfecha(fecha);
         }
 

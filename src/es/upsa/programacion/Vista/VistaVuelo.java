@@ -16,12 +16,13 @@ public class VistaVuelo {
     private VueloController vueloController;
     private UsuarioController usuarioController;
     private Menu menu;
-    Scanner sc = new Scanner(System.in);
+    Scanner sc;
 
     public VistaVuelo(Agencia agencia) {
         this.agencia = agencia;
         this.vueloController = new VueloController(agencia);
         this.usuarioController = new UsuarioController(agencia);
+        this.sc = new Scanner(System.in);
     }
 
 
