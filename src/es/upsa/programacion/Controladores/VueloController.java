@@ -73,19 +73,14 @@ public class VueloController {
         return true;
     }
 
-    public boolean eliminarVuelo(String idVuelo){
-        if(idVuelo == null){
-            System.out.println("El vuelo no existe.");
-            return false;
-        }
+    public int eliminarVuelo(String idVuelo){
 
         Vuelo vueloExiste = buscarVueloId(idVuelo);
         if(vueloExiste != null){
             vuelos.remove(vueloExiste);
-            return true;
+            return 0;
         }
-        System.out.println("Vuelo no encontrado.");
-        return false;
+        return -1;
     }
 
 
