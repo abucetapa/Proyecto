@@ -7,7 +7,6 @@ public class Cliente extends Usuario {
 
     private String nombre;
     private String dni;
-    private String password;
     private String email;
     private String telefono;
     private ArrayList<Vuelo> reservados;
@@ -16,7 +15,6 @@ public class Cliente extends Usuario {
         super(idUser,password);
         this.nombre = nombre;
         this.dni = dni;
-        this.password = password;
         this.email = email;
         this.telefono = telefono;
         this.reservados = new ArrayList<>();
@@ -35,12 +33,6 @@ public class Cliente extends Usuario {
     }
     public void setDni(String dni) {
         this.dni = dni;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
     }
     public String getEmail() {
         return email;

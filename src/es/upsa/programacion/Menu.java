@@ -215,6 +215,7 @@ public class Menu {
                 mostrarMenuLogIn(usuario);
                 break;
             case 0:
+                mostrarMenuLogOut();
                 break;
             default:
                 System.out.println("Opcion no valida");
