@@ -8,13 +8,14 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Usuario usuario = null;
 
-        Agencia miAgencia = Constructor.inicializarAgencia();
+        Usuario usuario = null; //Inicializamos usuario a null para que primero entre en el Menu sin estar logeados
 
-        Menu menu = new Menu(miAgencia);
+        Agencia miAgencia = Constructor.inicializarAgencia(); //Inicializamos constructor
 
-        menu.mostrarMenu(usuario);
+        Menu menu = new Menu(miAgencia); // Iniciamos Menu con los datos de agencia
+
+        menu.mostrarMenu(usuario); // Hacemos llamada a la función mostrarMenu
 
     }
 }

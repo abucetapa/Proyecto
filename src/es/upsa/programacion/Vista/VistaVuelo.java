@@ -6,20 +6,16 @@ import es.upsa.programacion.Modelos.Agencia;
 import es.upsa.programacion.Modelos.Vuelo;
 import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Menu;
-import es.upsa.programacion.Controladores.VueloController;
 
 import java.util.Scanner;
 
 public class VistaVuelo {
-    private Agencia agencia;
-    private Usuario usuario;
     private VueloController vueloController;
     private UsuarioController usuarioController;
     private Menu menu;
     Scanner sc;
 
     public VistaVuelo(Agencia agencia) {
-        this.agencia = agencia;
         this.vueloController = new VueloController(agencia);
         this.usuarioController = new UsuarioController(agencia);
         this.sc = new Scanner(System.in);
@@ -55,6 +51,7 @@ public class VistaVuelo {
 
         System.out.print("Nuevo precio: ");
         String precioStr = sc.nextLine();
+
         Float nuevoPrecio = null;
         if(!precioStr.isEmpty()){
             try {
@@ -85,8 +82,8 @@ public class VistaVuelo {
 
     }
 
-    public int buscarVueloVista(){
-        System.out.println("Buscar vuelo por id:");
+    public int buscarVueloVistaId(){
+        System.out.println("Ingrese el id del vuelo");
         String idVuelo = sc.nextLine();
 
         Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo);
@@ -102,7 +99,7 @@ public class VistaVuelo {
     }
 
     public Vuelo buscarVueloVistaObjeto(){
-        System.out.println("Buscar vuelo por id:");
+        System.out.println("Ingrese el id del vuelo");
         String idVuelo = sc.nextLine();
 
         Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo);
@@ -154,16 +151,24 @@ public class VistaVuelo {
     public int reservaAsiento(Usuario usuario,String idVuelo){
         Vuelo vuelo = vueloController.buscarVueloId(idVuelo);
 
-        if(vuelo.getdisponibles() > 0){
-            if(usuarioController.añadirVueloReservado(usuario.getIdUser(),vuelo)){
-                System.out.println("Vuelo Reservado correctamente.");
-                return 0;
-            }
-            return -7;
+        System.out.println("Cuantos asientos quiere reservar:");
+        String nReservas = sc.nextLine();
+        Integer intNReservas = Integer.parseInt(nReservas);
 
+        if(usuarioController.addVueloReservado(usuario, vuelo, intNReservas)){
+            System.out.println("Vuelo/s Reservado correctamente.");
+            return 0;
         }
         return -8;
     }
 
+    public int mostrarDisponibilidad(Vuelo vuelo){
+        if(vuelo.getdisponibles() == 0){
+            return -8;
+        }else{
+            System.out.println("Asientos disponibles: " + vuelo.getdisponibles());
+        }
+        return 0;
+    }
 
 }

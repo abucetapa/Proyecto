@@ -25,7 +25,7 @@ public class Agencia {
     //funcion añadirVuelo
     //funcion añadirUsuario
 
-    public int addUsuario(String idUser, String nombre, String dni, String password, String email, String telefono){
+    public int addCliente(String idUser, String nombre, String dni, String password, String email, String telefono){
 
         Cliente nuevoCliente = new Cliente(idUser, nombre, dni, password, email, telefono);
 
