@@ -2,7 +2,6 @@ package es.upsa.programacion.Controladores;
 
 import es.upsa.programacion.Modelos.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -81,14 +80,14 @@ public class UsuarioController {
 
     // Añadrir vuelo a las reservas del usuario
 
-    public boolean añadirVueloReservado(String idUsuario, Vuelo vuelo){
-        Cliente cliente = buscarClienteId(idUsuario);
+    public boolean addVueloReservado(Usuario idUsuario, Vuelo vuelo, int intNReservas){
+        Cliente cliente = buscarClienteId(idUsuario.getIdUser());
 
         if(cliente == null || vuelo == null) {
             return false;
         }
 
-        if(vuelo.getdisponibles() <= 0) {
+        if(vuelo.getdisponibles() <= intNReservas) {
             return false;
         }
 
@@ -96,8 +95,10 @@ public class UsuarioController {
         if(cliente.getReservados().contains(vuelo)) {
             return false;
         }
-        cliente.getReservados().add(vuelo);
-        vuelo.setdisponibles(vuelo.getdisponibles() - 1);
+        for(int i = 0; i < intNReservas; i++) {
+            cliente.getReservados().add(vuelo);
+        }
+        vuelo.setdisponibles(vuelo.getdisponibles() - intNReservas);
 
         return true;
     }
