@@ -42,7 +42,7 @@ public class VueloController {
 
 
     public boolean modificarVuelo(String idVuelo, String salida, String destino,
-                                  String fecha, Float precio, Integer disponibles) {
+                                  String fecha, Double precio, Integer disponibles) {
 
 
         Vuelo vueloExiste = buscarVueloId(idVuelo);
