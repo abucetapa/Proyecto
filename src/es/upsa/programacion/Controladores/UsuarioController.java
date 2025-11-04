@@ -7,10 +7,8 @@ import java.util.List;
 
 public class UsuarioController {
     private List<Usuario> usuarios;
-    private Agencia agencia;
 
     public UsuarioController(Agencia agencia){
-        this.agencia=agencia;
         this.usuarios = agencia.getUsuarios();
     }
 
@@ -25,18 +23,21 @@ public class UsuarioController {
     }
 
     // Busqueda usuario por id, dni, email y telefono
-
+    // Devuelven cliente o administrador, dependiendo de la funcion
     public Cliente buscarClienteId(String idUsuario){
-        for(Usuario usuario : usuarios){
-            if(usuario.getIdUser().equals(idUsuario)){
-                return (Cliente) usuario;
+        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
+            if(usuario instanceof Cliente cliente) { // Comprueba que usuario es un cliente
+                if (usuario.getIdUser().equals(idUsuario)) {
+                    return cliente;
+                }
             }
         }
         return null;
     }
+
     public Cliente buscarClienteEmail(String email){
-        for(Usuario usuario : usuarios){
-            if(usuario instanceof Cliente cliente) {
+        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
+            if(usuario instanceof Cliente cliente) {// Comprueba que usuario es un cliente
                 if (cliente.getEmail().equals(email)){
                     return cliente;
                 }
@@ -46,8 +47,8 @@ public class UsuarioController {
     }
 
     public Cliente buscarClienteTelefono(String telefono){
-        for(Usuario usuario : usuarios){
-            if(usuario instanceof Cliente cliente) {
+        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
+            if(usuario instanceof Cliente cliente) {// Comprueba que usuario es un cliente
                 if (cliente.getTelefono().equals(telefono)){
                     return cliente;
                 }
@@ -57,8 +58,8 @@ public class UsuarioController {
     }
 
     public Cliente buscarClienteDni(String dni){
-        for(Usuario usuario : usuarios){
-            if(usuario instanceof Cliente cliente) {
+        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
+            if(usuario instanceof Cliente cliente) { // Comprueba que usuario es un cliente
                 if (cliente.getDni().equals(dni)){
                     return cliente;
                 }
@@ -68,8 +69,8 @@ public class UsuarioController {
     }
 
     public Administrador buscarAdminId(String idUsuario){
-        for(Usuario usuario : usuarios){
-            if(usuario instanceof Administrador administrador) {
+        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
+            if(usuario instanceof Administrador administrador) { //Comprueba que usuario es administrador
                 if (administrador.getIdUser().equals(idUsuario)){
                     return administrador;
                 }
@@ -79,27 +80,23 @@ public class UsuarioController {
     }
 
     // Añadrir vuelo a las reservas del usuario
-
     public boolean addVueloReservado(Usuario idUsuario, Vuelo vuelo, int intNReservas){
-        Cliente cliente = buscarClienteId(idUsuario.getIdUser());
+        Cliente cliente = buscarClienteId(idUsuario.getIdUser()); // Busca cliente por su id
 
-        if(cliente == null || vuelo == null) {
+        if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
             return false;
         }
 
+        //Comprueba que el numero de asientos disponibles es mayor o igual que el numero de asientos que quiere reservar
         if(vuelo.getdisponibles() <= intNReservas) {
             return false;
         }
 
-
-        if(cliente.getReservados().contains(vuelo)) {
-            return false;
+        for(int i = 0; i < intNReservas; i++) { // Itera el numero de vuelos que quiere reservar
+            cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
         }
-        for(int i = 0; i < intNReservas; i++) {
-            cliente.getReservados().add(vuelo);
-        }
-        vuelo.setdisponibles(vuelo.getdisponibles() - intNReservas);
-
+        vuelo.setdisponibles(vuelo.getdisponibles() - intNReservas); //Reduce el número de asientos disponibles
+                                                                     // para el vuelo
         return true;
     }
 

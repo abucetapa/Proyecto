@@ -13,14 +13,12 @@ import java.security.Principal;
 import java.util.Scanner;
 
 public class Menu {
-    private Scanner sc = new Scanner(System.in);
-    private Agencia agencia;
+    private Scanner sc;
     private VistaVuelo vistaVuelo;
     private VistaUsuario vistaUsuario;
     private VueloController vueloController;
 
     public Menu(Agencia agencia){
-        this.agencia = agencia;
         this.sc = new Scanner(System.in);
 
         this.vistaVuelo = new VistaVuelo(agencia);
