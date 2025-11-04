@@ -23,11 +23,44 @@ public class VistaUsuario {
     }
 
 
+    // Inicio sesión
+    public Usuario iniciarSesion(){
+        System.out.println("**Iniciar Sesion**");
 
+        System.out.println("Inserte dni, email o teléfono:"); //Pide uno de los tres datos para el inicio de sesión
+        String inicioSesion = sc.nextLine();
+
+
+
+        // Buscar usuario (Clientes: DNI, email, teléfono | Admins: solo ID)
+        // Inicio de sesión para administrador es opción oculta unicamente por id
+        Usuario usuario = usuarioController.buscarAdminId(inicioSesion);
+        if(usuario == null) usuario = usuarioController.buscarClienteDni(inicioSesion);
+        if(usuario == null) usuario = usuarioController.buscarClienteEmail(inicioSesion);
+        if(usuario == null) usuario = usuarioController.buscarClienteTelefono(inicioSesion);
+
+
+
+        if(usuario != null) {
+            System.out.println("Contraseña usuario: " + usuario.getPassword()); // ELiminar para entrega, es para
+                                                                                // visualización en pruebas
+            System.out.println("Inserte su contraseña:");
+            String password = sc.nextLine();
+
+            if(password.equals(usuario.getPassword())) { // Comprueba que la contraseña es correcta
+                System.out.println("Sesion iniciado correctamente.");
+                return usuario;
+            }else System.out.println("Contraseña incorrecta.");
+        }
+        return null;
+    }
+
+    //Registrar usuario
     public int addUsuarioVista() {
         System.out.println("**Registrarse**");
         Scanner sc = new Scanner(System.in);
 
+        // Pide cada uno de los valores que debe insertar, ninguno de los valores puede ser nulo
         String dni = "";
         while (dni.isEmpty()) {
             System.out.println("Ingrese su DNI:");
@@ -63,10 +96,12 @@ public class VistaUsuario {
             if (telefono.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un teléfono válido.");
         }
 
-        String idUser = generarNuevoId();
+        String idUser = generarNuevoId(); // Llamada a funcion auxiliar para generar id
 
+        //Crea nuevo cliente con los datos insertados
         Cliente cliente = new Cliente(idUser, nombre, dni, password, email, telefono);
 
+        //Añade el cliente al Array de Usuarios
         boolean usuarioAñadido = usuarioController.addUsuario(cliente);
 
         if (usuarioAñadido) {
@@ -77,35 +112,36 @@ public class VistaUsuario {
         }
     }
 
-    public String generarNuevoId() {
-        List<Usuario> usuarios = agencia.getUsuarios();
+    // Mostrar billetes del usuario
+    public int mostrarMisBilletes(Usuario usuario){
 
-        if (usuarios.isEmpty()) {
-            return "U0031"; // Reservados U0001 - U0030 para admins
+        if(usuario == null) return -9; // Caso usuario nulo
+
+        if(usuario instanceof Cliente cliente){ // Comprobamos que el usuario es de tipo cliente
+            if(cliente.getReservados().isEmpty()) { // Caso Array reservados esta vacio
+                return -5;
+            } else {
+                System.out.println("Tus vuelos reservados:");
+                // Iteramos en el array de los vuelos reservamos del cliente y los mostramos
+                for(Vuelo v : cliente.getReservados()) {
+                    System.out.println("- " + v.toString());
+                }
+                return 0;
+            }
         }
-
-        int max = 30; // los primeros 30 reservados para administradores
-
-        for (Usuario u : usuarios) {
-            try {
-                // Extraer la parte numérica del ID
-                // Quita el primer valor del string
-                int num = Integer.parseInt(u.getIdUser().substring(1));
-                if (num > max) max = num;
-            } catch (NumberFormatException ignored) {}
-        }
-
-        return String.format("U%04d", max + 1);
+        return 0;
 
     }
 
+    //Mostrar usuarios
     public int mostrarUsuarios(){
         System.out.println("**Usuarios**");
 
-
+        // Array usuarios no vacío
         if (usuarios == null || usuarios.isEmpty()) {
             return -5;
         } else {
+            // Iteramos en array de usuarios y mostramos
             for (Usuario u : usuarios) {
                 System.out.println(u);
             }
@@ -115,49 +151,27 @@ public class VistaUsuario {
 
     }
 
-    public Usuario iniciarSesion(){
-        System.out.println("**Iniciar Sesion**");
+    // FUNCION AUXILIAR
 
-        System.out.println("Inserte dni, email o teléfono:");
-        String inicioSesion = sc.nextLine();
+    // Generar id
+    public String generarNuevoId() {
+        // Solicitamos el Array de usuarios
+        List<Usuario> usuarios = agencia.getUsuarios();
 
-
-
-        // Buscar usuario (Clientes: DNI, email, teléfono | Admins: solo ID)
-        Usuario usuario = usuarioController.buscarAdminId(inicioSesion);
-        if(usuario == null) usuario = usuarioController.buscarClienteDni(inicioSesion);
-        if(usuario == null) usuario = usuarioController.buscarClienteEmail(inicioSesion);
-        if(usuario == null) usuario = usuarioController.buscarClienteTelefono(inicioSesion);
-
-
-
-        if(usuario != null) {
-            System.out.println("Contraseña usuario: " + usuario.getPassword());
-            System.out.println("Inserte su contraseña:");
-            String password = sc.nextLine();
-
-            if(password.equals(usuario.getPassword())) {
-                System.out.println("Sesion iniciado correctamente.");
-                return usuario;
-            }
+        if (usuarios.isEmpty()) { // Si la lista vacía
+            return "U0031"; // Reservados U0001 - U0030 para admins
         }
-        return null;
-    }
 
-    public int mostrarMisBilletes(Usuario usuario){
-        if(usuario == null) return -9;
-        if(usuario instanceof Cliente cliente){
-            if(cliente.getReservados().isEmpty()) {
-                return -5;
-            } else {
-                System.out.println("Tus vuelos reservados:");
-                for(Vuelo v : cliente.getReservados()) {
-                    System.out.println("- " + v.toString());
-                }
-                return 0;
-            }
+        int max = 30; // los primeros 30 reservados para administradores
+
+        for (Usuario u : usuarios) { // Iteramos en el Array de usuarios
+            try {
+                // Extraer la parte numérica del ID
+                // Quita el primer valor del string
+                int num = Integer.parseInt(u.getIdUser().substring(1));
+                if (num > max) max = num;
+            } catch (NumberFormatException ignored) {}
         }
-        return 0;
-
+        return String.format("U%04d", max + 1); // Generamos el nuevo id
     }
 }
