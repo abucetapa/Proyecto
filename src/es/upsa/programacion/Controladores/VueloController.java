@@ -7,6 +7,8 @@ import es.upsa.programacion.Modelos.Vuelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 
 public class VueloController {
     private List<Vuelo> vuelos;
@@ -139,5 +141,43 @@ public class VueloController {
         }
 
         return 0;
+    }
+
+    private String generarIdVuelo(String tipo) {
+        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
+        if (tipo.equals("I")) {
+            return "VI-" + numeroAleatorio;
+        } else {
+            return "VN-" + numeroAleatorio;
+        }
+    }
+
+    public void añadirVueloPorId() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Añadir nuevo vuelo ===");
+        System.out.print("Salida: ");
+        String salida = scanner.nextLine();
+
+        System.out.print("Destino: ");
+        String destino = scanner.nextLine();
+
+        System.out.print("Fecha (ej: 2025-11-10): ");
+        String fecha = scanner.nextLine();
+
+        System.out.print("Precio: ");
+        Double precio = scanner.nextDouble();
+
+        System.out.print("Plazas disponibles: ");
+        Integer disponibles = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("¿El vuelo es nacional o internacional? (N/I): ");
+        String tipo = scanner.nextLine().trim().toUpperCase();
+
+        String idVuelo = generarIdVuelo(tipo);
+
+        Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);
+        addVuelo(nuevoVuelo);
     }
 }
