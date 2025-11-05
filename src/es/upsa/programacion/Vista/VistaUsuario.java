@@ -96,7 +96,7 @@ public class VistaUsuario {
             if (telefono.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un teléfono válido.");
         }
 
-        String idUser = generarNuevoId(); // Llamada a funcion auxiliar para generar id
+        String idUser = generarNuevoIdCliente(); // Llamada a funcion auxiliar para generar id
 
         //Crea nuevo cliente con los datos insertados
         Cliente cliente = new Cliente(idUser, nombre, dni, password, email, telefono);
@@ -154,7 +154,7 @@ public class VistaUsuario {
     // FUNCION AUXILIAR
 
     // Generar id
-    public String generarNuevoId() {
+    public String generarNuevoIdCliente() {
         // Solicitamos el Array de usuarios
         List<Usuario> usuarios = agencia.getUsuarios();
 
@@ -163,8 +163,32 @@ public class VistaUsuario {
 
         do {
             // Generar número aleatorio entre 31 y 9999 (reservados U0001-U0030 para admins)
-            int numId = (int) (Math.random() * 9969) + 31;
+            int numId = (int) (Math.random() * 100000) ;
             nuevoId = String.format("U%06d", numId); // El id va a tener 6 numeros
+
+            // Verificar si el ID ya existe
+            idExiste = false;
+            for (Usuario u : usuarios) {
+                if (u.getIdUser().equals(nuevoId)) {
+                    idExiste = true;
+                    break;
+                }
+            }
+        } while (idExiste); // Repetir mientras el ID ya exista
+
+        return nuevoId;
+    }
+    public String generarNuevoIdAdmin() {
+        // Solicitamos el Array de usuarios
+        List<Usuario> usuarios = agencia.getUsuarios();
+
+        String nuevoId;
+        boolean idExiste;
+
+        do {
+            // Generar número aleatorio hasta el 31
+            int numId = (int) (Math.random() * 100);
+            nuevoId = String.format("A%03d", numId); // El id va a tener 3 digitos
 
             // Verificar si el ID ya existe
             idExiste = false;
