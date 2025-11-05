@@ -158,20 +158,24 @@ public class VistaUsuario {
         // Solicitamos el Array de usuarios
         List<Usuario> usuarios = agencia.getUsuarios();
 
-        if (usuarios.isEmpty()) { // Si la lista vacía
-            return "U0031"; // Reservados U0001 - U0030 para admins
-        }
+        String nuevoId;
+        boolean idExiste;
 
-        int max = 30; // los primeros 30 reservados para administradores
+        do {
+            // Generar número aleatorio entre 31 y 9999 (reservados U0001-U0030 para admins)
+            int numId = (int) (Math.random() * 9969) + 31;
+            nuevoId = String.format("U%06d", numId); // El id va a tener 6 numeros
 
-        for (Usuario u : usuarios) { // Iteramos en el Array de usuarios
-            try {
-                // Extraer la parte numérica del ID
-                // Quita el primer valor del string
-                int num = Integer.parseInt(u.getIdUser().substring(1));
-                if (num > max) max = num;
-            } catch (NumberFormatException ignored) {}
-        }
-        return String.format("U%04d", max + 1); // Generamos el nuevo id
+            // Verificar si el ID ya existe
+            idExiste = false;
+            for (Usuario u : usuarios) {
+                if (u.getIdUser().equals(nuevoId)) {
+                    idExiste = true;
+                    break;
+                }
+            }
+        } while (idExiste); // Repetir mientras el ID ya exista
+
+        return nuevoId;
     }
 }
