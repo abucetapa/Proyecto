@@ -151,7 +151,7 @@ public class VistaVuelo {
 
             return -1;
         }else {
-            System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado.toString());
+            System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado);
             return 0;
         }
 
@@ -166,7 +166,7 @@ public class VistaVuelo {
         if(vueloEncontrado == null){
             return null;
         }else {
-            System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado.toString());
+            System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado);
             return vueloEncontrado;
         }
 
@@ -178,7 +178,7 @@ public class VistaVuelo {
 
         System.out.println("Cuantos asientos quiere reservar:");
         String nReservas = sc.nextLine(); // Guardamos los asientos que queremos reservar
-        Integer intNReservas = Integer.parseInt(nReservas);// Transformamos de String a int
+        int intNReservas = Integer.parseInt(nReservas);// Transformamos de String a int
 
         if(usuarioController.addVueloReservado(usuario, vuelo, intNReservas)){ //Llamamos al controlador para añadir el
             // asiento a la lista de vuelos del usuario
