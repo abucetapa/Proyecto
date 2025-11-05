@@ -7,6 +7,7 @@ public class Constructor {
 
     public static Agencia inicializarAgencia(){
         Agencia miAgencia = new Agencia();
+
         VistaUsuario vistaUsuario = new VistaUsuario(miAgencia);
 
         miAgencia.addAdmin(vistaUsuario.generarNuevoIdAdmin(), "12345");

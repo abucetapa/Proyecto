@@ -16,8 +16,8 @@ public class VueloController {
     public VueloController(Agencia agencia) {
         this.agencia = agencia;
         this.vuelos = agencia.getVuelos();
-        vuelos = new ArrayList<>(agencia.getVuelos());
-        usuarios = new ArrayList<>(agencia.getUsuarios());
+        this.usuarios = agencia.getUsuarios();
+
     }
 
     // Añadir vuelo
@@ -93,7 +93,7 @@ public class VueloController {
         System.out.println("**Vuelos**");
 
 
-        if (vuelos == null || vuelos.isEmpty()) { // Array de vuelos vacío
+        if (vuelos.isEmpty()) { // Array de vuelos vacío
             return -5;
         }
         for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
