@@ -12,7 +12,7 @@ public class Constructor {
 
         miAgencia.addAdmin(vistaUsuario.generarNuevoIdAdmin(), "12345");
         miAgencia.addCliente(vistaUsuario.generarNuevoIdCliente(),"Antonio", "35601443L","asdf","antonio@upsa.es","666343234");
-        miAgencia.addCliente(vistaUsuario.generarNuevoIdCliente(),"Raúl", "05952801X","qwer","rsanchezpe@upsa.es","635214237");
+        miAgencia.addCliente(vistaUsuario.generarNuevoIdAdmin(),"Raúl", "05952801X","qwer","rsanchezpe@upsa.es","635214237");
 
 
         //Vuelos nacionales -id empieza en V
