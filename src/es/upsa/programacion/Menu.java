@@ -189,7 +189,7 @@ public class Menu {
                     this.error(vistaVuelo.modificarVueloMenu());
                     break;
                 case 4:
-                    //Funcion eliminarVuelo
+                    this.error(vistaVuelo.eliminarVueloVista());
                     break;
                 case 5:
                     System.out.println("Cerrando sesión.......");

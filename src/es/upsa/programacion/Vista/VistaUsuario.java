@@ -144,14 +144,15 @@ public class VistaUsuario {
         // Array usuarios no vacío
         if (usuarios == null || usuarios.isEmpty()) {
             return -5;
-        } else {
-            // Iteramos en array de usuarios y mostramos
-            for (Usuario u : usuarios) {
-                System.out.println(u);
-            }
-            System.out.println();
-            return 0;
         }
+
+        usuarios.sort((v1, v2) -> v1.getIdUser().compareTo(v2.getIdUser())); //Ordena los vuelos
+            // Iteramos en array de usuarios y mostramos
+        for (Usuario u : usuarios) {
+            System.out.println(u);
+        }
+        return 0;
+
 
     }
 

@@ -7,6 +7,7 @@ import es.upsa.programacion.Modelos.Vuelo;
 import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Menu;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class VistaVuelo {
@@ -63,6 +64,18 @@ public class VistaVuelo {
         if(!vueloAñadido){
             return -2;
         }
+        return 0;
+    }
+
+    public int eliminarVueloVista(){
+        System.out.println("=== Eliminar vuelo ===");
+        System.out.println("Inserte el id del vuelo a eliminar:");
+        String idVuelo = sc.nextLine();
+        boolean eliminarVuelo = vueloController.eliminarVuelo(idVuelo);
+        if(!eliminarVuelo){
+            return -2;
+        }
+        System.out.println("El vuelo eliminado exitosamente");
         return 0;
     }
 

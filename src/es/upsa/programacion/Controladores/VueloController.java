@@ -69,15 +69,15 @@ public class VueloController {
     }
 
     // Eliminar vuelo
-    public int eliminarVuelo(String idVuelo) {
+    public boolean eliminarVuelo(String idVuelo) {
 
         Vuelo vueloExiste = buscarVueloId(idVuelo); // Comprueba que el vuelo existe y lo guarda
 
         if (vueloExiste != null) {
             vuelos.remove(vueloExiste); // Elimina el vuelo del ArrayList
-            return 0;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     // Buscar vuelo
