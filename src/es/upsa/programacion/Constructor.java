@@ -1,14 +1,16 @@
 package es.upsa.programacion;
 
 import es.upsa.programacion.Modelos.Agencia;
+import es.upsa.programacion.Vista.VistaUsuario;
 
 public class Constructor {
 
     public static Agencia inicializarAgencia(){
         Agencia miAgencia = new Agencia();
+        VistaUsuario vistaUsuario = new VistaUsuario(miAgencia);
 
         miAgencia.addAdmin("U001", "12345");
-        miAgencia.addCliente("U031","Antonio", "35601443L","asdf","antonio@upsa.es","666343234");
+        miAgencia.addCliente(vistaUsuario.generarNuevoId(),"Antonio", "35601443L","asdf","antonio@upsa.es","666343234");
 
 
         //Vuelos nacionales -id empieza en V
