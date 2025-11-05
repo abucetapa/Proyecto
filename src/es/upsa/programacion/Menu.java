@@ -13,14 +13,12 @@ import java.security.Principal;
 import java.util.Scanner;
 
 public class Menu {
-    private Scanner sc = new Scanner(System.in);
-    private Agencia agencia;
+    private Scanner sc;
     private VistaVuelo vistaVuelo;
     private VistaUsuario vistaUsuario;
     private VueloController vueloController;
 
     public Menu(Agencia agencia){
-        this.agencia = agencia;
         this.sc = new Scanner(System.in);
 
         this.vistaVuelo = new VistaVuelo(agencia);
@@ -42,7 +40,7 @@ public class Menu {
     }
 
 
-
+    // MENUS
     public void mostrarMenuLogOut(){
 
         int opcion;
@@ -155,7 +153,6 @@ public class Menu {
         }while(opcion != 0);
     }
 
-
     // Menu autentificacion como administrador
     public void mostrarMenuAdmin(Usuario usuario){
         int opcion;
@@ -227,17 +224,17 @@ public class Menu {
 
         switch (accion) {
             case 1:
+                //Acción reserva asiento
                 this.error(vistaVuelo.reservaAsiento(usuario,vuelo.getIdVuelo()));
                 break;
             case 2:
+                //Accion que muestra los asientos disponibles para ese vuelo
                 this.error(vistaVuelo.mostrarDisponibilidad(vuelo));
                 menuVuelo(usuario, vuelo);
                 break;
             case 3:
+                // Cancelamos acción y nos manda de vuelta al menu del Cliente
                 mostrarMenuLogIn(usuario);
-                break;
-            case 0:
-                mostrarMenuLogOut();
                 break;
             default:
                 System.out.println("Opcion no valida");
@@ -245,6 +242,8 @@ public class Menu {
         }
     }
 
+
+    // FUNCION CODIGOS ERRORES
     public void error(int codigoError){
         switch (codigoError){
             case -1:

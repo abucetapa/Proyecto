@@ -20,31 +20,22 @@ public class VueloController {
         usuarios = new ArrayList<>(agencia.getUsuarios());
     }
 
-
+    // Añadir vuelo
     public boolean addVuelo(Vuelo vuelo) {
-
+        // Comprueba que todos los parametros no son nulos
         if (vuelo.getIdVuelo() != null && vuelo.getsalida() != null && vuelo.getdestino() != null && vuelo.getfecha() != null && vuelo.getprecio() != null) {
-            vuelos.add(vuelo);
+            vuelos.add(vuelo); // Añade el vuelo al ArrayList de vuelos
             System.out.println("El vuelo" + vuelo.getIdVuelo() + " ha sido añadido correctamente.");
             return true;
         } else return false;
     }
 
-
-    public Vuelo buscarVueloId(String idVuelo) {
-        for (Vuelo v : vuelos) {
-            if (v.getIdVuelo().equals(idVuelo)) {
-                return v;
-            }
-        }
-        return null;
-    }
-
-
+    // Modificar vuelo
     public boolean modificarVuelo(String idVuelo, String salida, String destino,
-                                  String fecha, Float precio, Integer disponibles) {
+                                  String fecha, Double precio, Integer disponibles) {
 
-
+        // Comprueba que los parametros no esten vacíos
+        // En caso de no estar vacíos, modifica los valores a traves de las funciones set
         Vuelo vueloExiste = buscarVueloId(idVuelo);
         if (idVuelo.isEmpty()) {
             vueloExiste.setIdVuelo(idVuelo);
@@ -65,7 +56,7 @@ public class VueloController {
         }
 
         if (precio != null && precio > 0) {
-            vueloExiste.setprecio(Double.valueOf(precio));
+            vueloExiste.setprecio(precio);
         }
 
         if (disponibles != null && disponibles >= 0) {
@@ -75,30 +66,42 @@ public class VueloController {
         return true;
     }
 
+    // Eliminar vuelo
     public int eliminarVuelo(String idVuelo) {
 
-        Vuelo vueloExiste = buscarVueloId(idVuelo);
+        Vuelo vueloExiste = buscarVueloId(idVuelo); // Comprueba que el vuelo existe y lo guarda
+
         if (vueloExiste != null) {
-            vuelos.remove(vueloExiste);
+            vuelos.remove(vueloExiste); // Elimina el vuelo del ArrayList
             return 0;
         }
         return -1;
     }
 
+    // Buscar vuelo
+    public Vuelo buscarVueloId(String idVuelo) {
+        for (Vuelo v : vuelos) { // Recorre Arraylist de vuelos
+            if (v.getIdVuelo().equals(idVuelo)) { // Comprueba que los id coinciden
+                return v; // Devuelve el vuelo
+            }
+        }
+        return null;
+    }
 
+    // Mostrar vuelos
     public int mostrarVuelos() {
         System.out.println("**Vuelos**");
 
 
-        if (vuelos == null || vuelos.isEmpty()) {
+        if (vuelos == null || vuelos.isEmpty()) { // Array de vuelos vacío
             return -5;
         }
-        for (Vuelo v : vuelos) {
-            System.out.println(v);
+        for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
+            System.out.println(v); //Muestra datos del vuelo
         }
         return 0;
     }
-
+    // Mostrar vuelos reservados del cliente
     public int mostrarVuelosCliente(Usuario usuario) {
         System.out.println("**Vuelos**");
 
@@ -107,7 +110,7 @@ public class VueloController {
             return -5;
         }
 
-        // Verificar que el cliente logueado no sea null
+        // Verificar que el cliente no sea null
         if (usuario == null) {
             return -1;
         }
@@ -117,7 +120,7 @@ public class VueloController {
         for (Vuelo v : vuelos) {
             int contadorReservas = 0;
 
-            // Verificar si el cliente logueado tiene vuelos reservados
+            // Verificar si el cliente tiene vuelos reservados
             if (clienteLogueado.getReservados() != null) {
                 // Contar cuántas veces este usuario tiene reservado este vuelo
                 for (Vuelo vueloReservado : clienteLogueado.getReservados()) {
