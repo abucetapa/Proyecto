@@ -51,7 +51,7 @@ public class Menu {
             System.out.println("2. Mostrar vuelos");
             System.out.println("3. Iniciar sesion");
             System.out.println("4. Registrarse");
-            System.out.println("5. Mostrar usuarios");//Borrar
+            System.out.println("5. Mostrar usuarios //Borrar para final ");//Borrar
             System.out.println("0. Salir");
 
             // Comprobamos que la opción insertada es correcta
@@ -170,7 +170,7 @@ public class Menu {
             try {
                 opcion = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                opcion = -100;;
+                opcion = -100;
             }
 
             switch (opcion) {

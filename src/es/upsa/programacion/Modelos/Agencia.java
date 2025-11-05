@@ -43,7 +43,7 @@ public class Agencia {
 
     public void addVuelo(String idVuelo, String salida, String destino, String fecha, Double precio, Integer disponibles){
         Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);
-        if(vuelos.contains(nuevoVuelo)){
+        if(!vuelos.contains(nuevoVuelo)){
             vuelos.add(nuevoVuelo);
         }
     }
