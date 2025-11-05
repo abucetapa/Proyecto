@@ -184,16 +184,7 @@ public class VistaVuelo {
         return 0;
     }
 
-    private String generarIdVuelo(String tipo) {
-        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
-        if (tipo.equals("I")) {
-            return "VI-" + numeroAleatorio;
-        } else {
-            return "VN-" + numeroAleatorio;
-        }
-    }
-
-    public void añadirVueloPorId() {
+    public int añadirVueloPorId() {
         System.out.println("=== Añadir nuevo vuelo ===");
         System.out.print("Salida: ");
         String salida = sc.nextLine();
@@ -214,16 +205,24 @@ public class VistaVuelo {
         System.out.print("¿El vuelo es nacional o internacional? (N/I): ");
         String tipo = sc.nextLine().trim().toUpperCase();
 
-        String idVuelo = generarIdVuelo(tipo);
+        if (!tipo.equals("N") && !tipo.equals("I")) {
+            return -10;
+        }
 
+        String idVuelo = generarIdVuelo(tipo);
         Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);
 
         boolean exito = vueloController.addVuelo(nuevoVuelo);
 
-        if (exito) {
-            System.out.println("Vuelo añadido correctamente con ID: " + idVuelo);
+        return exito ? 0 : -2;
+    }
+
+    private String generarIdVuelo(String tipo) {
+        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
+        if (tipo.equals("I")) {
+            return "VI-" + numeroAleatorio;
         } else {
-            System.out.println("Error al añadir el vuelo.");
+            return "VN-" + numeroAleatorio;
         }
     }
 }
