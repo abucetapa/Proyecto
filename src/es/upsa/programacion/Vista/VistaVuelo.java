@@ -21,70 +21,65 @@ public class VistaVuelo {
         this.sc = new Scanner(System.in);
     }
 
-    public int addVueloVista(){
-        System.out.println("**Añadir vuelo**");
-        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Inserte el id del vuelo:");
-        String idVuelo = sc.nextLine();
-
-        System.out.println("Inserte el lugar de salida el vuelo:");
-        String lugarSalida = sc.nextLine();
-
-        System.out.println("Inserte el destino del vuelo:");
-        String destino = sc.nextLine();
-
-        System.out.println("Inserte la fecha del vuelo:");
-        String fecha = sc.nextLine();
-
-        System.out.println("Inserte el precio del billete");
-        String precioStr = sc.nextLine();
-
-        Double precioDouble = null;
-        if(!precioStr.isEmpty()){
-            try {
-                precioDouble = Double.parseDouble(precioStr);
-            } catch (NumberFormatException e) {
-                System.out.println("Precio inválido, no se modificará.");
-            }
-        }
-
-        System.out.println("Inserte asientos disponibles:");
-        String asientosStr = sc.nextLine();
-
-        Integer asientosInt = null;
-        if(!asientosStr.isEmpty()){
-            try {
-                asientosInt = Integer.parseInt(asientosStr);
-            } catch (NumberFormatException e) {
-                System.out.println("Número de asientos inválido, no se modificará.");
-            }
-        }
-
-        Vuelo vuelo = new Vuelo(idVuelo,lugarSalida,destino,fecha,precioDouble,asientosInt);
-
-        boolean vueloAñadido = vueloController.addVuelo(vuelo);
-
-        if(vueloAñadido){
-            System.out.println("✓ Vuelo añadido correctamente.");
-            return 0;
+    public String generarIdVuelo(String tipo) {
+        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
+        if (tipo.equals("I")) {
+            return "VI-" + numeroAleatorio;
         } else {
-            return -2;
+            return "VN-" + numeroAleatorio;
         }
     }
 
+    public int addVueloVista() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Añadir nuevo vuelo ===");
+
+        System.out.print("¿El vuelo es nacional o internacional? (N/I): ");
+        String tipo = scanner.nextLine().trim().toUpperCase();
+
+        System.out.print("Salida: ");
+        String salida = scanner.nextLine();
+
+        System.out.print("Destino: ");
+        String destino = scanner.nextLine();
+
+        System.out.print("Fecha (ej: 2025-11-10): ");
+        String fecha = scanner.nextLine();
+
+        System.out.print("Precio: ");
+        Double precio = scanner.nextDouble();
+
+        System.out.print("Plazas disponibles: ");
+        Integer disponibles = scanner.nextInt();
+        scanner.nextLine();
+
+        String idVuelo = generarIdVuelo(tipo);
+
+        Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);
+        boolean vueloAñadido = vueloController.addVuelo(nuevoVuelo);
+
+        if(!vueloAñadido){
+            return -2;
+        }
+        return 0;
+    }
+
+    // Vista modificar vuelo
     public int modificarVueloMenu(){
-        System.out.println("Id de vuelo a modificar:");
+        System.out.println("Id de vuelo a modificar:"); //Guardamos el id del vuelo para buscar si existe
         String idVuelo = sc.nextLine();
 
-        Vuelo vueloExiste = vueloController.buscarVueloId(idVuelo);
+        Vuelo vueloExiste = vueloController.buscarVueloId(idVuelo); //Llamada a funcion del controlador para encontrar el vuelo
 
-        if(vueloExiste == null){
+        if(vueloExiste == null){ // Si el vuelo no existe
             System.out.println("Vuelo no encontrado.");
-            return -9;
+            return -9;//Error vuelo no encontrado
         }
 
         System.out.println("Vuelo actual: " + vueloExiste);
+        // Petición de los datos a cambiar
         System.out.println("\n--- Modificar Vuelo ---");
         System.out.println("(Presione Enter para no modificar un campo)");
         System.out.print("Nueva salida: ");
@@ -102,11 +97,12 @@ public class VistaVuelo {
         System.out.print("Nuevo precio: ");
         String precioStr = sc.nextLine();
 
+        // Transformamos los datos a los valores correctos
         Double nuevoPrecio = null;
-        if(!precioStr.isEmpty()){
+        if(!precioStr.isEmpty()){ //En el caso de no haber insertado nada, no se modificará
             try {
                 nuevoPrecio = Double.parseDouble(precioStr);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // Comprobamos que se pueda pasar a float el valor insertado
                 System.out.println("Precio inválido, no se modificará.");
             }
         }
@@ -114,30 +110,35 @@ public class VistaVuelo {
         Integer nuevosDisponibles = null;
         if(!asientosStr.isEmpty()){
             try {
-                nuevosDisponibles = Integer.parseInt(asientosStr);
+                nuevosDisponibles = Integer.parseInt(asientosStr); // Comprobamos que se pueda pasar a int el valor insertado
             } catch (NumberFormatException e) {
                 System.out.println("Número de asientos inválido, no se modificará.");
             }
         }
 
         boolean modificado = vueloController.modificarVuelo(idVuelo, nuevaSalida, nuevoDestino,
-                nuevaFecha, nuevoPrecio, nuevosDisponibles);
+                nuevaFecha, nuevoPrecio, nuevosDisponibles); //LLamada a funcion del controlador para actualizar los valores
 
         if(modificado){
-            return 0;
+            return 0; //Vuelo modificado correctamente
         } else {
-            return -8;
+            return -8; //Error. No se ha podido modificar el vuelo
+
         }
 
     }
 
+    //BUSQUEDA
+
+    //Funcion de busqueda que devuelve int para detención de errores
     public int buscarVueloVistaId(){
         System.out.println("Ingrese el id del vuelo");
-        String idVuelo = sc.nextLine();
+        String idVuelo = sc.nextLine(); // Recogemos el id insertado por consola
 
-        Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo);
+        Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo); // Función de controlador busca el vuelo por id
 
         if(vueloEncontrado == null){
+
             return -1;
         }else {
             System.out.println("Datos del vuelo " + idVuelo +": "+ vueloEncontrado);
@@ -145,12 +146,12 @@ public class VistaVuelo {
         }
 
     }
-
+    // Funcion busqueda que devuelve tipo vuelo
     public Vuelo buscarVueloVistaObjeto(){
         System.out.println("Ingrese el id del vuelo");
-        String idVuelo = sc.nextLine();
+        String idVuelo = sc.nextLine(); // Recogemos el id insertado por consola
 
-        Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo);
+        Vuelo vueloEncontrado = vueloController.buscarVueloId(idVuelo); // Función de controlador busca el vuelo por id
 
         if(vueloEncontrado == null){
             return null;
@@ -161,20 +162,23 @@ public class VistaVuelo {
 
     }
 
+    // Reserva asientos
     public int reservaAsiento(Usuario usuario,String idVuelo){
-        Vuelo vuelo = vueloController.buscarVueloId(idVuelo);
+        Vuelo vuelo = vueloController.buscarVueloId(idVuelo); //Buscamos el vuelo seleccionado
 
         System.out.println("Cuantos asientos quiere reservar:");
-        String nReservas = sc.nextLine();
-        int intNReservas = Integer.parseInt(nReservas);
+        String nReservas = sc.nextLine(); // Guardamos los asientos que queremos reservar
+        int intNReservas = Integer.parseInt(nReservas);// Transformamos de String a int
 
-        if(usuarioController.addVueloReservado(usuario, vuelo, intNReservas)){
+        if(usuarioController.addVueloReservado(usuario, vuelo, intNReservas)){ //Llamamos al controlador para añadir el
+            // asiento a la lista de vuelos del usuario
             System.out.println("Vuelo/s Reservado correctamente.");
             return 0;
         }
         return -8;
     }
 
+    //Funcion muestra los asientos disponibles del vuelo
     public int mostrarDisponibilidad(Vuelo vuelo){
         if(vuelo.getdisponibles() == 0){
             return -8;
@@ -184,45 +188,6 @@ public class VistaVuelo {
         return 0;
     }
 
-    public int añadirVueloPorId() {
-        System.out.println("=== Añadir nuevo vuelo ===");
-        System.out.print("Salida: ");
-        String salida = sc.nextLine();
 
-        System.out.print("Destino: ");
-        String destino = sc.nextLine();
 
-        System.out.print("Fecha (ej: 2025-11-10): ");
-        String fecha = sc.nextLine();
-
-        System.out.print("Precio: ");
-        Double precio = sc.nextDouble();
-
-        System.out.print("Plazas disponibles: ");
-        Integer disponibles = sc.nextInt();
-        sc.nextLine();
-
-        System.out.print("¿El vuelo es nacional o internacional? (N/I): ");
-        String tipo = sc.nextLine().trim().toUpperCase();
-
-        if (!tipo.equals("N") && !tipo.equals("I")) {
-            return -10;
-        }
-
-        String idVuelo = generarIdVuelo(tipo);
-        Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);
-
-        boolean exito = vueloController.addVuelo(nuevoVuelo);
-
-        return exito ? 0 : -2;
-    }
-
-    private String generarIdVuelo(String tipo) {
-        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
-        if (tipo.equals("I")) {
-            return "VI-" + numeroAleatorio;
-        } else {
-            return "VN-" + numeroAleatorio;
-        }
-    }
 }

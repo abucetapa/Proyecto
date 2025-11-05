@@ -98,6 +98,7 @@ public class VueloController {
         if (vuelos.isEmpty()) { // Array de vuelos vacío
             return -5;
         }
+        vuelos.sort((v1, v2) -> v1.getIdVuelo().compareTo(v2.getIdVuelo())); //Ordena los vuelos
         for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
             System.out.println(v); //Muestra datos del vuelo
         }
@@ -142,4 +143,6 @@ public class VueloController {
 
         return 0;
     }
+
+
 }

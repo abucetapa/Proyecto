@@ -165,6 +165,7 @@ public class Menu {
             System.out.println("3. Modificar vuelo");
             System.out.println("4. Eliminar vuelo");
             System.out.println("5. Cerrar sesion");
+            System.out.println("6. Mostrar vuelos //Borrar para final ");
             System.out.println("0. Salir");
 
             try {
@@ -193,6 +194,9 @@ public class Menu {
                 case 5:
                     System.out.println("Cerrando sesión.......");
                     mostrarMenu(null);
+                    break;
+                case 6:
+                    this.error(vueloController.mostrarVuelos());
                     break;
                 case 0:
                     break;
