@@ -69,10 +69,14 @@ public class VistaUsuario {
         }
 
         String nombre = "";
-        while (nombre.isEmpty()) {
+        while (nombre.isEmpty() || nombre.split("\\s+").length < 2) {
             System.out.println("Ingrese su nombre:");
             nombre = sc.nextLine().trim();
-            if (nombre.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un nombre válido.");
+            if (nombre.isEmpty()){
+                System.out.println("Campo obligatorio. Por favor, ingrese un nombre válido.");
+            } else if (nombre.split("\\s+").length < 2) {
+                System.out.println("Debe ingresar al menos nombre y apellido.");
+            }
         }
 
         String email = "";
@@ -153,7 +157,7 @@ public class VistaUsuario {
 
     // FUNCION AUXILIAR
 
-    // Generar id
+    // Generar id aleatorio
     public String generarNuevoIdCliente() {
         // Solicitamos el Array de usuarios
         List<Usuario> usuarios = agencia.getUsuarios();
@@ -163,7 +167,7 @@ public class VistaUsuario {
 
         do {
             // Generar número aleatorio entre 31 y 9999 (reservados U0001-U0030 para admins)
-            int numId = (int) (Math.random() * 100000) ;
+            int numId = (int) (Math.random() * 99999) +1 ;
             nuevoId = String.format("U%06d", numId); // El id va a tener 6 numeros
 
             // Verificar si el ID ya existe
@@ -187,7 +191,8 @@ public class VistaUsuario {
 
         do {
             // Generar número aleatorio hasta el 31
-            int numId = (int) (Math.random() * 100);
+            int numId = (int) (Math.random() * 99 ) + 1;
+
             nuevoId = String.format("A%03d", numId); // El id va a tener 3 digitos
 
             // Verificar si el ID ya existe
