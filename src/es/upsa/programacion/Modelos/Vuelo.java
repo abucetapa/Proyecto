@@ -2,31 +2,25 @@ package es.upsa.programacion.Modelos;
 
 import java.util.Objects;
 
-public class Vuelo {
+public abstract class Vuelo {
 
     private String idVuelo;
     private Avion avion;
     private String compania;
     private String salida;
     private String destino;
-    private String terminal;
-    private String puertaEmb;
     private String fecha;
-    private Double precio;
-    private Integer disponibles;
+    private Integer asientos;
 
 
-    public Vuelo(String idVuelo, Avion avion, String salida, String destino,String terminal, String puertaEmb, String fecha, Double precio) {
+    public Vuelo(String idVuelo, Avion avion, String salida, String destino, String fecha) {
         this.idVuelo = idVuelo;
         this.avion = avion;
         this.compania = avion.getCompañia();
         this.salida = salida;
         this.destino = destino;
-        this.terminal = terminal;
-        this.puertaEmb = puertaEmb;
         this.fecha = fecha;
-        this.precio = precio;
-        this.disponibles = avion.gettAvion().getCapacidad();
+        this.asientos = avion.gettAvion().getCapacidad();
     }
 
     public String getIdVuelo() {
@@ -54,21 +48,6 @@ public class Vuelo {
         this.destino = destino;
     }
 
-    public String getPuertaEmb() {
-        return puertaEmb;
-    }
-
-    public void setPuertaEmb(String puertaEmb) {
-        this.puertaEmb = puertaEmb;
-    }
-
-    public String getTerminal() {
-        return terminal;
-    }
-
-    public void setTerminal(String terminal) {
-        this.terminal = terminal;
-    }
 
     public String getfecha() {
         return fecha;
@@ -77,18 +56,15 @@ public class Vuelo {
         this.fecha = fecha;
     }
 
-    public Double getprecio() {
-        return precio;
+
+    public Integer getAsientos() {
+        return asientos;
     }
-    public void setprecio(Double precio) {
-        this.precio = precio;
+    public void setAsientos(Integer asientos) {
+        this.asientos = asientos;
     }
-    public Integer getdisponibles() {
-        return disponibles;
-    }
-    public void setdisponibles(Integer disponibles) {
-        this.disponibles = disponibles;
-    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -106,8 +82,7 @@ public class Vuelo {
                 ", salida='" + salida + '\'' +
                 ", destino='" + destino + '\'' +
                 ", fecha='" + fecha + '\'' +
-                ", precio = " + precio +
-                "€, disponibles=" + disponibles +
+                ", asientos=" + asientos +
                 '}';
     }
 

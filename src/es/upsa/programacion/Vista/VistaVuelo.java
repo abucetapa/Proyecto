@@ -3,10 +3,7 @@ package es.upsa.programacion.Vista;
 import es.upsa.programacion.Controladores.AvionController;
 import es.upsa.programacion.Controladores.UsuarioController;
 import es.upsa.programacion.Controladores.VueloController;
-import es.upsa.programacion.Modelos.Agencia;
-import es.upsa.programacion.Modelos.Avion;
-import es.upsa.programacion.Modelos.Vuelo;
-import es.upsa.programacion.Modelos.Usuario;
+import es.upsa.programacion.Modelos.*;
 import es.upsa.programacion.Menu;
 
 import java.util.ArrayList;
@@ -89,7 +86,7 @@ public class VistaVuelo {
                 avion = null;
             }
         }
-        avion.setDisponible(false);
+
         System.out.println("Avión asignado correctamente.");
 
 
@@ -150,13 +147,13 @@ public class VistaVuelo {
         }
 
         String idVuelo = generarIdVuelo(tipo,idAvion);
-        Vuelo nuevoVuelo = new Vuelo(idVuelo, avion, salida, destino, terminal, puertaEmb,fecha, precio);
-        boolean vueloAñadido = vueloController.addVuelo(nuevoVuelo);
+        VueloComercial nuevoVuelo = new VueloComercial(idVuelo, avion, salida, destino,terminal, puertaEmb, fecha, precio);
+        boolean vueloAñadido = vueloController.addVueloComercial(nuevoVuelo);
 
         if(!vueloAñadido){
             return -2;
         }
-
+        avion.setDisponible(false);
         return 0;
     }
 
@@ -286,10 +283,10 @@ public class VistaVuelo {
 
     //Funcion muestra los asientos disponibles del vuelo
     public int mostrarDisponibilidad(Vuelo vuelo){
-        if(vuelo.getdisponibles() == 0){
+        if(vuelo.getAsientos() == 0){
             return -8;
         }else{
-            System.out.println("Asientos disponibles: " + vuelo.getdisponibles());
+            System.out.println("Asientos disponibles: " + vuelo.getAsientos());
         }
         return 0;
     }

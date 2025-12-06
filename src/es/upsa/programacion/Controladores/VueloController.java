@@ -1,10 +1,8 @@
 package es.upsa.programacion.Controladores;
 
-import es.upsa.programacion.Modelos.Agencia;
-import es.upsa.programacion.Modelos.Cliente;
-import es.upsa.programacion.Modelos.Usuario;
-import es.upsa.programacion.Modelos.Vuelo;
+import es.upsa.programacion.Modelos.*;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,13 +21,24 @@ public class VueloController {
     }
 
     // Añadir vuelo
-    public boolean addVuelo(Vuelo vuelo) {
+    public boolean addVueloComercial(Vuelo vuelo) {
         // Comprueba que todos los parametros no son nulos
-        if (vuelo.getIdVuelo() != null && vuelo.getsalida() != null && vuelo.getdestino() != null && vuelo.getTerminal() !=null && vuelo.getPuertaEmb()!=null && vuelo.getfecha() != null && vuelo.getprecio() != null) {
-            vuelos.add(vuelo); // Añade el vuelo al ArrayList de vuelos
-            System.out.println("El vuelo " + vuelo.getIdVuelo() + " ha sido añadido correctamente.");
-            return true;
-        } else return false;
+        if(vuelo instanceof VueloComercial){
+            VueloComercial vc = (VueloComercial) vuelo;
+            if (vc.getIdVuelo() != null &&
+                    vc.getsalida() != null &&
+                    vc.getdestino() != null &&
+                    vc.getTerminal() != null &&
+                    vc.getPuertaEmb() != null &&
+                    vc.getfecha() != null &&
+                    vc.getPrecio() != null) {
+                vuelos.add(vc); // Añade el vuelo al ArrayList de vuelos
+                System.out.println("El vuelo " + vuelo.getIdVuelo() + " ha sido añadido correctamente.");
+                return true;
+            } else return false;
+        }
+        return false;
+
     }
 
     // Modificar vuelo
@@ -57,12 +66,13 @@ public class VueloController {
             vueloExiste.setfecha(fecha);
         }
 
+        VueloComercial vcExiste = (VueloComercial) vueloExiste;
         if (precio != null && precio > 0) {
-            vueloExiste.setprecio(precio);
+            vcExiste.setPrecio(precio);
         }
 
         if (disponibles != null && disponibles >= 0) {
-            vueloExiste.setdisponibles(disponibles);
+            vueloExiste.setAsientos(disponibles);
         }
 
         return true;

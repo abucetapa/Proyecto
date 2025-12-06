@@ -47,36 +47,37 @@ public class Constructor {
         miAgencia.addCliente(vistaUsuario.generarNuevoIdCliente(),"Raúl", "05952801X","qwer","rsanchezpe@upsa.es","635214237");
 
 
-        String idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();; // Usamos ID explícito o aleatorio: miAgencia.getAviones().get(...).getIdAvion()
+        String idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();; // Usamos ID explícito o aleatorio: miAgencia.getAviones().get(...).getIdAvion()
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Madrid", "Barcelona", "T4", "J45", "20/10/2025", 120.50);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Sevilla", "Valencia", "T1", "B12", "21/10/2025", 89.99);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Bilbao", "Madrid", "T2", "C05", "22/10/2025", 110.00);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Granada", "Palma de Mallorca", "T1", "A10", "23/10/2025", 135.75);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Madrid", "Tenerife", "T4S", "R01", "25/10/2025", 210.25);
 
         // Vuelos internacionales
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("I", idAvion), idAvion, "Madrid", "Lisboa", "T4", "K22", "26/10/2025", 95.60);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("I", idAvion), idAvion, "Barcelona", "París", "T2", "D15", "27/10/2025", 150.40);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("I", idAvion), idAvion, "Valencia", "Roma", "T1", "B01", "28/10/2025", 175.99);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("I", idAvion), idAvion, "Sevilla", "Londres", "T3", "E09", "29/10/2025", 180.50);
 
-        idAvion = miAgencia.getAviones().get((int)(Math.random()*miAgencia.getAviones().size())).getIdAvion();;
+        idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("I", idAvion), idAvion, "Bilbao", "Ámsterdam", "T2", "C11", "30/10/2025", 210.00);
+
         return miAgencia;
     }
 }

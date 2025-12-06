@@ -88,14 +88,14 @@ public class UsuarioController {
         }
 
         //Comprueba que el numero de asientos disponibles es mayor o igual que el numero de asientos que quiere reservar
-        if(vuelo.getdisponibles() <= intNReservas) {
+        if(vuelo.getAsientos() < intNReservas) {
             return false;
         }
 
         for(int i = 0; i < intNReservas; i++) { // Itera el numero de vuelos que quiere reservar
             cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
         }
-        vuelo.setdisponibles(vuelo.getdisponibles() - intNReservas); //Reduce el número de asientos disponibles
+        vuelo.setAsientos(vuelo.getAsientos() - intNReservas); //Reduce el número de asientos disponibles
                                                                      // para el vuelo
         return true;
     }

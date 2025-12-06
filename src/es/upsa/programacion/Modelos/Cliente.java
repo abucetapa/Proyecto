@@ -61,7 +61,7 @@ public class Cliente extends Usuario {
             for (int i = 0; i < reservados.size(); i++) {
                 Vuelo vuelo = reservados.get(i);
                 resultado = resultado + vuelo.getIdVuelo() + " (" +
-                        vuelo.getsalida() + "→" + vuelo.getdisponibles() +
+                        vuelo.getsalida() + "→" + vuelo.getAsientos() +
                         ", fecha " + vuelo.getfecha() + ")";
 
                 if (i < reservados.size() - 1) {
