@@ -40,6 +40,23 @@ public class VueloController {
         return false;
 
     }
+    public boolean addVueloPrivado(Vuelo vuelo) {
+        // Comprueba que todos los parametros no son nulos
+        if(vuelo instanceof VueloPrivado){
+            VueloPrivado vc = (VueloPrivado) vuelo;
+            if (vc.getIdVuelo() != null &&
+                    vc.getsalida() != null &&
+                    vc.getdestino() != null &&
+                    vc.getfecha() != null &&
+                    vc.getPrecio() != null) {
+                vuelos.add(vc); // Añade el vuelo al ArrayList de vuelos
+                System.out.println("El vuelo " + vuelo.getIdVuelo() + " ha sido añadido correctamente.");
+                return true;
+            } else return false;
+        }
+        return false;
+
+    }
 
     // Modificar vuelo
     public boolean modificarVuelo(String idVuelo, String salida, String destino,

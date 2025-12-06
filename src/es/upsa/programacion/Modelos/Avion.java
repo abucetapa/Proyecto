@@ -8,7 +8,7 @@ public class Avion {
     public enum tipoAvion{
         COMERCIAL("Comercial", 200),
         PRIVADO_GRANDE("Privado negocios",100),
-        PRIVADO("Privado", 10);
+        PRIVADO("Privado", 30);
 
 
         private String descripcion;
@@ -32,12 +32,15 @@ public class Avion {
     private String compañia;
     private tipoAvion tAvion;
     private boolean disponible;
+    private String ciudadActual;
 
-    public Avion(String idAvion, String compañia, tipoAvion tAvion) {
+    public Avion(String idAvion, String compañia, tipoAvion tAvion, String ciudadActual) {
         this.idAvion = idAvion;
         this.compañia=compañia;
         this.tAvion = tAvion;
         this.disponible = true;
+        this.ciudadActual = ciudadActual;
+
     }
 
     public String getIdAvion() {
@@ -68,6 +71,12 @@ public class Avion {
     }
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+    public String getCiudadActual() {
+        return ciudadActual;
+    }
+    public void setCiudadActual(String ciudadActual) {
+        this.ciudadActual = ciudadActual;
     }
 
     @Override

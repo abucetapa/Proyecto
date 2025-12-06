@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class VistaVuelo {
     private ArrayList<Avion> aviones;
+    private ArrayList<Avion> avionesPrivados;
     private VueloController vueloController;
     private UsuarioController usuarioController;
     private AvionController avionController;
@@ -22,6 +23,7 @@ public class VistaVuelo {
         this.usuarioController = new UsuarioController(agencia);
         this.avionController = new AvionController(agencia);
         this.aviones = agencia.getAviones();
+        this.avionesPrivados = agencia.getAvionesPrivados();
         this.sc = new Scanner(System.in);
     }
 
@@ -45,6 +47,23 @@ public class VistaVuelo {
         } else {
             return "N" + siglas + numeroAleatorio;
         }
+    }
+
+    public String generarIdVueloPrivado(String idAvion, Usuario usuario) {
+        String siglas = null;
+
+        Avion avion = avionController.buscarAvionId(idAvion);
+        String[] sufijo = avion.getCompañia().trim().split("\\s+");
+
+        if(sufijo.length == 2){
+            siglas = String.valueOf(sufijo[0].charAt(0)).toUpperCase() + String.valueOf(sufijo[1].charAt(0)).toUpperCase();
+        }
+        if(sufijo.length == 1){
+            siglas = sufijo[0].substring(0, 2).toUpperCase();
+        }
+
+        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
+        return "P" + siglas + numeroAleatorio + usuario.getIdUser();
     }
 
     public int addVueloVista() {
@@ -123,32 +142,14 @@ public class VistaVuelo {
         }
 
         // 8. Fecha
-        String fecha = "";
-        while (fecha.isEmpty()) {
-            System.out.print("Fecha (ej: DD/MM/YYYY): ");
-            fecha = sc.nextLine().trim();
-            if(fecha.isEmpty()) System.out.println("Campo obligatorio.");
-        }
+        String fecha = solicitarfecha();
 
         // 9. Precio (Control de errores numéricos)
-        Double precio = null;
-        while (precio == null) {
-            System.out.print("Precio: ");
-            String precioStr = sc.nextLine().trim();
-            try {
-                precio = Double.parseDouble(precioStr);
-                if (precio < 0) {
-                    System.out.println("El precio no puede ser negativo.");
-                    precio = null;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Por favor, introduzca un número válido (ej: 120.50).");
-            }
-        }
+        Double precio = solicitarPrecio();
 
         String idVuelo = generarIdVuelo(tipo,idAvion);
         VueloComercial nuevoVuelo = new VueloComercial(idVuelo, avion, salida, destino,terminal, puertaEmb, fecha, precio);
-        boolean vueloAñadido = vueloController.addVueloComercial(nuevoVuelo);
+        boolean vueloAñadido = vueloController.addVueloPrivado(nuevoVuelo);
 
         if(!vueloAñadido){
             return -2;
@@ -281,6 +282,124 @@ public class VistaVuelo {
         return -8;
     }
 
+    public int reservarVueloPrivado(Usuario usuario) {
+        System.out.println("--RESERVA DE VUELO PRIVADO--");
+
+        String tipoAvion = "";
+        String[] destinosPermitidos = {"Madrid", "Barcelona", "Sevilla", "Santiago de Compostela", "Santander", "Valencia"};
+
+        Integer asientosStr = null;
+        String entrada = sc.nextLine().trim(); // Leemos como texto primero
+
+        try {
+            // Intentamos convertir el texto a número
+            asientosStr = Integer.parseInt(entrada);
+
+            // Validar que sea positivo
+            if (asientosStr <= 0) {
+                System.out.println("Error: La capacidad debe ser mayor que 0.");
+                asientosStr = null; // Volvemos a null para repetir el bucle
+            }
+
+        } catch (NumberFormatException e) {
+            // Si el usuario escribe letras o lo deja vacío, entramos aquí
+            System.out.println("Error: Debe introducir un número válido.");
+        }
+        if (asientosStr <= 10) {
+            System.out.println("Solicitud para grupo pequeño. Buscando Jets Privados ligeros...");
+            tipoAvion = "Privado";
+        } else if (asientosStr <= 100) {
+            System.out.println("Solicitud para grupo grande. Buscando Jets de Negocios...");
+            tipoAvion = "Privado negocios";
+        } else {
+            System.out.println("ERROR: No disponemos de aviones privados para más de 100 personas.");
+        }
+
+
+        boolean salidaValida = false;
+        String lugarSalida = "";
+
+        while (!salidaValida) {
+            System.out.println("Lugares de destino disponibles: Madrid, Barcelona, Sevilla, Santiago de Compostela, Santander y Valencia");
+            System.out.print("Indique el destino: ");
+            lugarSalida = sc.nextLine().trim(); // Usamos 'sc' de tu clase VistaVuelo
+
+            if (lugarSalida.isEmpty()) {
+                System.out.println("Error: El lugar de destino no puede estar vacío.");
+            } else {
+                // Recorremos la lista de permitidos para ver si coincide
+                for (String destino : destinosPermitidos) {
+                    // equalsIgnoreCase permite que funcione si escriben "madrid" o "MADRID"
+                    if (destino.equalsIgnoreCase(lugarSalida)) {
+                        lugarSalida = destino;
+                        salidaValida = true;
+                        break; // Salimos del for
+                    }
+                }
+
+                if (!salidaValida) {
+                    System.out.println("Error: Destino no válido. Por favor, elija uno de la lista mostrada.");
+                }
+            }
+        }
+
+
+            boolean destinoValido = false;
+            String lugarDestino = "";
+
+            while (!destinoValido) {
+                System.out.println("Lugares de destino disponibles: Madrid, Barcelona, Sevilla, Santiago de Compostela, Santander y Valencia");
+                System.out.print("Indique el destino: ");
+                lugarDestino = sc.nextLine().trim(); // Usamos 'sc' de tu clase VistaVuelo
+
+                if (lugarDestino.isEmpty()) {
+                    System.out.println("Error: El lugar de destino no puede estar vacío.");
+                } else {
+                    // Recorremos la lista de permitidos para ver si coincide
+                    for (String destino : destinosPermitidos) {
+                        // equalsIgnoreCase permite que funcione si escriben "madrid" o "MADRID"
+                        if (destino.equalsIgnoreCase(lugarDestino)) {
+                            lugarDestino = destino;
+                            destinoValido = true;
+                            break; // Salimos del for
+                        }
+                    }
+                }
+            }
+
+            if (!destinoValido) {
+                System.out.println("Error: Destino no válido. Por favor, elija uno de la lista mostrada.");
+            }
+
+
+        String fecha = solicitarfecha();
+
+        Double precio = solicitarPrecio();
+
+        Avion avion = null;
+        while (avion == null) {
+
+            avion = avionesPrivados.get((int) (Math.random() * avionesPrivados.size()));
+            if (!lugarSalida.equals(avion.getCiudadActual()) || !avion.gettAvion().getDescripcion().equals(tipoAvion)) {
+                avion = null;
+            }
+
+        }
+
+
+        String idVuelo = generarIdVueloPrivado(avion.getIdAvion(), usuario );
+
+        VueloPrivado nuevoVuelo = new VueloPrivado(idVuelo, avion, lugarSalida, lugarDestino, fecha, precio);
+        boolean vueloAñadido = vueloController.addVueloPrivado(nuevoVuelo);
+
+        if(!vueloAñadido){
+            return -10;
+        }
+        avion.setDisponible(false);
+        return 0;
+
+    }
+
     //Funcion muestra los asientos disponibles del vuelo
     public int mostrarDisponibilidad(Vuelo vuelo){
         if(vuelo.getAsientos() == 0){
@@ -291,6 +410,33 @@ public class VistaVuelo {
         return 0;
     }
 
+    public String solicitarfecha(){
+        String fecha = "";
+        while (fecha.isEmpty()) {
+            System.out.print("Fecha (ej: DD/MM/YYYY): ");
+            fecha = sc.nextLine().trim();
+            if (fecha.isEmpty()) System.out.println("Campo obligatorio.");
+        }
+        return fecha;
+    }
+
+    public Double solicitarPrecio(){
+        Double precio = null;
+        while (precio == null) {
+            System.out.print("Precio: ");
+            String precioStr = sc.nextLine().trim();
+            try {
+                precio = Double.parseDouble(precioStr);
+                if (precio < 0) {
+                    System.out.println("El precio no puede ser negativo.");
+                    precio = null;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, introduzca un número válido (ej: 120.50).");
+            }
+        }
+        return precio;
+    }
 
 
 }

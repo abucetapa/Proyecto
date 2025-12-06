@@ -31,6 +31,19 @@ public class Agencia {
         return listaComerciales;
     }
 
+    public ArrayList<Avion> getAvionesPrivados() {
+        // 1. Creamos una lista temporal nueva cada vez que llamamos al metodo
+        ArrayList<Avion> listaComerciales = new ArrayList<>();
+
+
+        for (Avion avion : aviones) {
+            if (avion.gettAvion().getDescripcion().equals("Privado") || avion.gettAvion().getDescripcion().equals("Privado negocios")) {
+                listaComerciales.add(avion);
+            }
+        }
+        return listaComerciales;
+    }
+
 
     public ArrayList<Vuelo> getVuelos() {
         return vuelos;
@@ -77,8 +90,8 @@ public class Agencia {
         }
     }
 
-    public void addAvion(String idAvion, String compania, Avion.tipoAvion tipoAvion){
-        Avion avion = new Avion(idAvion,compania, tipoAvion);
+    public void addAvion(String idAvion, String compania, Avion.tipoAvion tipoAvion, String ciudadActual){
+        Avion avion = new Avion(idAvion,compania, tipoAvion, ciudadActual);
         if(!aviones.contains(avion)){
             aviones.add(avion);
         }

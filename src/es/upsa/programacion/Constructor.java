@@ -20,26 +20,35 @@ public class Constructor {
 
         // ========== AVIONES ==========
         // Aviones comerciales
-// Aviones comerciales
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Iberia"), "Iberia", Avion.tipoAvion.COMERCIAL);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Vueling"), "Vueling", Avion.tipoAvion.COMERCIAL);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Ryanair"), "Ryanair", Avion.tipoAvion.COMERCIAL);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Air Europa"), "Air Europa", Avion.tipoAvion.COMERCIAL);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Lufthansa"), "Lufthansa", Avion.tipoAvion.COMERCIAL);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("British Airways"), "British Airways", Avion.tipoAvion.COMERCIAL);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Air France"), "Air France", Avion.tipoAvion.COMERCIAL);
+        // Aviones comerciales
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Iberia"), "Iberia", Avion.tipoAvion.COMERCIAL, "Madrid");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Vueling"), "Vueling", Avion.tipoAvion.COMERCIAL, "Barcelona");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Ryanair"), "Ryanair", Avion.tipoAvion.COMERCIAL, "Sevilla");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Air Europa"), "Air Europa", Avion.tipoAvion.COMERCIAL, "Madrid");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Lufthansa"), "Lufthansa", Avion.tipoAvion.COMERCIAL, "Bilbao");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("British Airways"), "British Airways", Avion.tipoAvion.COMERCIAL, "Valencia");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Air France"), "Air France", Avion.tipoAvion.COMERCIAL, "Paris");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("KLM"), "KLM", Avion.tipoAvion.COMERCIAL, "Amsterdam");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("TAP Portugal"), "TAP Portugal", Avion.tipoAvion.COMERCIAL, "Lisboa");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("ITA Airways"), "ITA Airways", Avion.tipoAvion.COMERCIAL, "Roma");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("EasyJet"), "EasyJet", Avion.tipoAvion.COMERCIAL, "Londres");
 
-// Aviones privados de negocios
-        miAgencia.addAvion(vistaAvion.generarIdAvion("NetJets"), "NetJets", Avion.tipoAvion.PRIVADO_GRANDE);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("VistaJet"), "VistaJet", Avion.tipoAvion.PRIVADO_GRANDE);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Flexjet"), "Flexjet", Avion.tipoAvion.PRIVADO_GRANDE);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Sentient Jet"), "Sentient Jet", Avion.tipoAvion.PRIVADO_GRANDE);
+        // ========== AVIONES PRIVADOS DE NEGOCIOS (Distribuidos en ciudades clave) ==========
+        miAgencia.addAvion(vistaAvion.generarIdAvion("NetJets"), "NetJets", Avion.tipoAvion.PRIVADO_GRANDE, "Madrid");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("VistaJet"), "VistaJet", Avion.tipoAvion.PRIVADO_GRANDE, "Barcelona");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Flexjet"), "Flexjet", Avion.tipoAvion.PRIVADO_GRANDE, "Marbella");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Sentient Jet"), "Sentient Jet", Avion.tipoAvion.PRIVADO_GRANDE, "Ibiza");
 
-// Aviones privados pequeños
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Elite Airways"), "Elite Airways", Avion.tipoAvion.PRIVADO);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Private Sky"), "Private Sky", Avion.tipoAvion.PRIVADO);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Luxury Air"), "Luxury Air", Avion.tipoAvion.PRIVADO);
-        miAgencia.addAvion(vistaAvion.generarIdAvion("Executive Jet"), "Executive Jet", Avion.tipoAvion.PRIVADO);        // Aviones privados pequeños
+        // ========== AVIONES PRIVADOS PEQUEÑOS ==========
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Elite Airways"), "Elite Airways", Avion.tipoAvion.PRIVADO, "Madrid");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Private Sky"), "Private Sky", Avion.tipoAvion.PRIVADO, "Valencia");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Luxury Air"), "Luxury Air", Avion.tipoAvion.PRIVADO, "Sevilla");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Executive Jet"), "Executive Jet", Avion.tipoAvion.PRIVADO, "Madrid");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Air Charter"), "Air Charter", Avion.tipoAvion.PRIVADO, "Sevilla");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Victor"), "Victor", Avion.tipoAvion.PRIVADO, "Valencia");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Jettly"), "Jettly", Avion.tipoAvion.PRIVADO, "Tenerife");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("Magellan Jets"), "Magellan Jets", Avion.tipoAvion.PRIVADO, "Bilbao");
+        miAgencia.addAvion(vistaAvion.generarIdAvion("PrivateFly"), "PrivateFly", Avion.tipoAvion.PRIVADO, "Barcelona");
 
 
         miAgencia.addAdmin(vistaUsuario.generarNuevoIdAdmin(), "12345");
@@ -47,7 +56,7 @@ public class Constructor {
         miAgencia.addCliente(vistaUsuario.generarNuevoIdCliente(),"Raúl", "05952801X","qwer","rsanchezpe@upsa.es","635214237");
 
 
-        String idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();; // Usamos ID explícito o aleatorio: miAgencia.getAviones().get(...).getIdAvion()
+        String idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion(); // Usamos ID explícito o aleatorio: miAgencia.getAviones().get(...).getIdAvion()
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Madrid", "Barcelona", "T4", "J45", "20/10/2025", 120.50);
 
         idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion();

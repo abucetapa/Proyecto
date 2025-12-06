@@ -111,9 +111,9 @@ public class Menu {
             System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Mostrar vuelos");
-            System.out.println("3. Mis billetes");
-            System.out.println("4. Perfil");
-            System.out.println("5. Cerrar sesion");
+            System.out.println("4. Mis billetes");
+            System.out.println("5. Perfil");
+            System.out.println("6. Cerrar sesion");
             System.out.println("0. Salir");
 
             // Comprobamos que la opción insertada es correcta
@@ -138,12 +138,13 @@ public class Menu {
                 case 3:
                     //Muestra todos los bitelles del usuario
                     System.out.println("**MIS BILLETES**");
-                    this.error(vistaUsuario.mostrarMisBilletes(usuario));
+                    this.error(vistaVuelo.reservarVueloPrivado(usuario));
                     break;
                 case 4:
-                    //Funcion modificarDatosUsuario
-
+                    System.out.println("**MIS BILLETES**");
+                    this.error(vistaUsuario.mostrarMisBilletes(usuario));
                     break;
+
                 case 5:
                     // Cerramos sesión y se muestra el MenuLogOut
                     System.out.println("Cerrando sesión.......");
@@ -282,6 +283,9 @@ public class Menu {
                 break;
             case -9:
                 System.out.println("ERROR. Usuario no encontrado");
+                break;
+            case -10:
+                System.out.println("ERROR. No se ha podido reservar el vuelo.");
                 break;
             case 0:
                 break;
