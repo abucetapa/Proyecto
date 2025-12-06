@@ -1,5 +1,6 @@
 package es.upsa.programacion;
 
+import es.upsa.programacion.Controladores.AvionController;
 import es.upsa.programacion.Controladores.UsuarioController;
 import es.upsa.programacion.Controladores.VueloController;
 import es.upsa.programacion.Modelos.Administrador;
@@ -8,6 +9,7 @@ import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Modelos.Vuelo;
 import es.upsa.programacion.Vista.VistaUsuario;
 import es.upsa.programacion.Vista.VistaVuelo;
+import es.upsa.programacion.Controladores.AvionController;
 
 import java.security.Principal;
 import java.util.Scanner;
@@ -16,6 +18,7 @@ public class Menu {
     private Scanner sc;
     private VistaVuelo vistaVuelo;
     private VistaUsuario vistaUsuario;
+    private AvionController avionController;
     private VueloController vueloController;
 
     public Menu(Agencia agencia){
@@ -23,15 +26,15 @@ public class Menu {
 
         this.vistaVuelo = new VistaVuelo(agencia);
         this.vistaUsuario = new VistaUsuario(agencia);
-        this.vistaUsuario = new VistaUsuario(agencia);
         this.vueloController = new VueloController(agencia);
+        this.avionController = new AvionController(agencia);
 
     }
 
     public void mostrarMenu(Usuario usuario){
 
         if(usuario==null){
-            mostrarMenuLogOut(); //Caso usuario es nulo, por eso en el main declaramos usuario nulo
+            mostrarMenuAdmin(usuario); //Caso usuario es nulo, por eso en el main declaramos usuario nulo
         }else{
             if(usuario instanceof Administrador){ // Caso de que el usuario es un administrador
                 mostrarMenuAdmin(usuario); //Se muestra menu especifico para administradores
@@ -51,7 +54,8 @@ public class Menu {
             System.out.println("2. Mostrar vuelos");
             System.out.println("3. Iniciar sesion");
             System.out.println("4. Registrarse");
-            System.out.println("5. Mostrar usuarios //Borrar para final ");//Borrar
+            System.out.println("5. Mostrar usuarios //Borrar para final ");//BORRAR
+            System.out.println("6. Mostrar aviones //Borrar para final"); //Borrar
             System.out.println("0. Salir");
 
             // Comprobamos que la opción insertada es correcta
@@ -85,6 +89,9 @@ public class Menu {
                     break;
                 case 5:
                     this.error(vistaUsuario.mostrarUsuarios());
+                    break;
+                case 6:
+                    this.error(avionController.mostrarAviones());
                     break;
                 case 0:
                     break;
@@ -196,7 +203,7 @@ public class Menu {
                     mostrarMenu(null);
                     break;
                 case 6:
-                    this.error(vueloController.mostrarVuelos());
+                    this.error(vueloController.mostrarVuelosAdmin());
                     break;
                 case 0:
                     break;

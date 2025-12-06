@@ -1,16 +1,22 @@
 package es.upsa.programacion.Modelos;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Agencia {
 
+    private ArrayList<Avion> aviones;
     private ArrayList<Vuelo> vuelos;
     private ArrayList<Usuario> usuarios;
 
     public Agencia(){
+        this.aviones = new ArrayList<>();
         this.vuelos = new ArrayList<>();
         this.usuarios = new ArrayList<>();
+    }
+    public ArrayList<Avion> getAviones() {
+        return aviones;
     }
 
     public ArrayList<Vuelo> getVuelos() {
@@ -41,11 +47,38 @@ public class Agencia {
 
 
 
-    public void addVuelo(String idVuelo, String salida, String destino, String fecha, Double precio, Integer disponibles){
-        Vuelo nuevoVuelo = new Vuelo(idVuelo, salida, destino, fecha, precio, disponibles);
+    public void addVuelo(String idVuelo, String idAvion, String salida, String destino,String terminal, String puertaEmb, String fecha, Double precio){
+        // Buscar el avión por ID
+        Avion avion = buscarAvionId(idAvion);
+
+        if(avion == null){
+            return;
+        }
+
+        // Crear el vuelo con el objeto Avion encontrado
+        Vuelo nuevoVuelo = new Vuelo(idVuelo, avion, salida, destino, terminal, puertaEmb, fecha, precio);
+
         if(!vuelos.contains(nuevoVuelo)){
             vuelos.add(nuevoVuelo);
+            avion.setDisponible(false);
         }
+    }
+
+    public void addAvion(String idAvion, String compania, Avion.tipoAvion tipoAvion){
+        Avion avion = new Avion(idAvion,compania, tipoAvion);
+        if(!aviones.contains(avion)){
+            aviones.add(avion);
+        }
+    }
+
+
+    public Avion buscarAvionId(String idAvion){
+        for(Avion a : aviones){
+            if(a.getIdAvion().equals(idAvion)){
+                return a;
+            }
+        }
+        return null;
     }
 
 

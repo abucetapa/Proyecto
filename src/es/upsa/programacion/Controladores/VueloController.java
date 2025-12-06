@@ -25,9 +25,9 @@ public class VueloController {
     // Añadir vuelo
     public boolean addVuelo(Vuelo vuelo) {
         // Comprueba que todos los parametros no son nulos
-        if (vuelo.getIdVuelo() != null && vuelo.getsalida() != null && vuelo.getdestino() != null && vuelo.getfecha() != null && vuelo.getprecio() != null) {
+        if (vuelo.getIdVuelo() != null && vuelo.getsalida() != null && vuelo.getdestino() != null && vuelo.getTerminal() !=null && vuelo.getPuertaEmb()!=null && vuelo.getfecha() != null && vuelo.getprecio() != null) {
             vuelos.add(vuelo); // Añade el vuelo al ArrayList de vuelos
-            System.out.println("El vuelo" + vuelo.getIdVuelo() + " ha sido añadido correctamente.");
+            System.out.println("El vuelo " + vuelo.getIdVuelo() + " ha sido añadido correctamente.");
             return true;
         } else return false;
     }
@@ -101,6 +101,20 @@ public class VueloController {
         vuelos.sort((v1, v2) -> v1.getIdVuelo().compareTo(v2.getIdVuelo())); //Ordena los vuelos
         for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
             System.out.println(v); //Muestra datos del vuelo
+        }
+        return 0;
+    }
+
+    public int mostrarVuelosAdmin() {
+        System.out.println("**Vuelos**");
+
+
+        if (vuelos.isEmpty()) { // Array de vuelos vacío
+            return -5;
+        }
+        vuelos.sort((v1, v2) -> v1.getIdVuelo().compareTo(v2.getIdVuelo())); //Ordena los vuelos
+        for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
+            System.out.println(v  + "\tAvion: " + v.getAvion().getIdAvion()); //Muestra datos del vuelo
         }
         return 0;
     }

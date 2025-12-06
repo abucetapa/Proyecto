@@ -5,20 +5,28 @@ import java.util.Objects;
 public class Vuelo {
 
     private String idVuelo;
+    private Avion avion;
+    private String compania;
     private String salida;
     private String destino;
+    private String terminal;
+    private String puertaEmb;
     private String fecha;
     private Double precio;
     private Integer disponibles;
 
 
-    public Vuelo(String idVuelo, String salida, String destino, String fecha, Double precio, Integer disponibles) {
+    public Vuelo(String idVuelo, Avion avion, String salida, String destino,String terminal, String puertaEmb, String fecha, Double precio) {
         this.idVuelo = idVuelo;
+        this.avion = avion;
+        this.compania = avion.getCompañia();
         this.salida = salida;
         this.destino = destino;
+        this.terminal = terminal;
+        this.puertaEmb = puertaEmb;
         this.fecha = fecha;
         this.precio = precio;
-        this.disponibles = disponibles;
+        this.disponibles = avion.gettAvion().getCapacidad();
     }
 
     public String getIdVuelo() {
@@ -26,6 +34,12 @@ public class Vuelo {
     }
     public void setIdVuelo(String idVuelo) {
         this.idVuelo = idVuelo;
+    }
+    public Avion getAvion() {
+        return avion;
+    }
+    public void setAvion(Avion avion) {
+        this.avion = avion;
     }
     public String getsalida() {
         return salida;
@@ -39,6 +53,23 @@ public class Vuelo {
     public void setdestino(String destino) {
         this.destino = destino;
     }
+
+    public String getPuertaEmb() {
+        return puertaEmb;
+    }
+
+    public void setPuertaEmb(String puertaEmb) {
+        this.puertaEmb = puertaEmb;
+    }
+
+    public String getTerminal() {
+        return terminal;
+    }
+
+    public void setTerminal(String terminal) {
+        this.terminal = terminal;
+    }
+
     public String getfecha() {
         return fecha;
     }
@@ -71,6 +102,7 @@ public class Vuelo {
     public String toString() {
         return "Vuelo{" +
                 "idVuelo='" + idVuelo + '\'' +
+                ", compania='" + compania + '\'' +
                 ", salida='" + salida + '\'' +
                 ", destino='" + destino + '\'' +
                 ", fecha='" + fecha + '\'' +
