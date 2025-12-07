@@ -34,7 +34,7 @@ public class Menu {
     public void mostrarMenu(Usuario usuario){
 
         if(usuario==null){
-            mostrarMenuAdmin(usuario); //Caso usuario es nulo, por eso en el main declaramos usuario nulo
+            mostrarMenuLogOut(); //Caso usuario es nulo, por eso en el main declaramos usuario nulo
         }else{
             if(usuario instanceof Administrador){ // Caso de que el usuario es un administrador
                 mostrarMenuAdmin(usuario); //Se muestra menu especifico para administradores
@@ -111,6 +111,7 @@ public class Menu {
             System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Mostrar vuelos");
+            System.out.println("3. ");
             System.out.println("4. Mis billetes");
             System.out.println("5. Perfil");
             System.out.println("6. Cerrar sesion");
@@ -136,8 +137,6 @@ public class Menu {
                     vueloController.mostrarVuelosCliente(usuario);
                     break;
                 case 3:
-                    //Muestra todos los bitelles del usuario
-                    System.out.println("**MIS BILLETES**");
                     this.error(vistaVuelo.reservarVueloPrivado(usuario));
                     break;
                 case 4:

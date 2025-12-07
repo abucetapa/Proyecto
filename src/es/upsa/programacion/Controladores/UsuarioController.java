@@ -100,6 +100,17 @@ public class UsuarioController {
         return true;
     }
 
+    public boolean addReservaVueloPrivado(Usuario idUsuario, Vuelo vuelo){
+        Cliente cliente = buscarClienteId(idUsuario.getIdUser()); // Busca cliente por su id
+
+        if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
+            return false;
+        }
+        cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
+
+        return true;
+    }
+
 
 
 

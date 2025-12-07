@@ -6,15 +6,15 @@ public class VueloPrivado extends Vuelo {
     private String puertaEmb;
     private Double precio;
 
-    public VueloPrivado(String idVuelo, Avion avion, String salida, String destino, String fecha, Double precio) {
+    public VueloPrivado(String idVuelo, Avion avion, String salida, String destino, String fecha) {
         super(idVuelo, avion, salida, destino, fecha); // Llamada al padre
 
-        this.precio = calculoAsientos(precio,this.getAsientos());
+        this.precio = calculoAsientos(this.getAsientos());
     }
 
 
-    private Double calculoAsientos(Double precio,Integer asientos) {
-        return precio * asientos + 100000;
+    private Double calculoAsientos(Integer asientos) {
+        return precio = 650.0 * asientos + 100000;
     }
 
     public String getPuertaEmb() {

@@ -289,23 +289,31 @@ public class VistaVuelo {
         String[] destinosPermitidos = {"Madrid", "Barcelona", "Sevilla", "Santiago de Compostela", "Santander", "Valencia"};
 
         Integer asientosStr = null;
-        String entrada = sc.nextLine().trim(); // Leemos como texto primero
+        while (asientosStr == null) {
+            System.out.println("Introduzca el numero de asientos requeridos:");
+            String entrada = sc.nextLine().trim();
 
-        try {
-            // Intentamos convertir el texto a número
-            asientosStr = Integer.parseInt(entrada);
-
-            // Validar que sea positivo
-            if (asientosStr <= 0) {
-                System.out.println("Error: La capacidad debe ser mayor que 0.");
-                asientosStr = null; // Volvemos a null para repetir el bucle
+            if (entrada.isEmpty()) {
+                System.out.println("Error: No puede dejar el campo vacío.");
+                continue; // Vuelve al principio del while
             }
 
-        } catch (NumberFormatException e) {
-            // Si el usuario escribe letras o lo deja vacío, entramos aquí
-            System.out.println("Error: Debe introducir un número válido.");
+            try {
+                // Intentamos convertir el texto a número
+                asientosStr = Integer.parseInt(entrada);
+
+                // Validar que sea positivo
+                if (asientosStr <= 0) {
+                    System.out.println("Error: La capacidad debe ser mayor que 0.");
+                    asientosStr = null; // Volvemos a null para repetir el bucle
+                }
+
+            } catch (NumberFormatException e) {
+                // Si el usuario escribe letras o lo deja vacío, entramos aquí
+                System.out.println("Error: Debe introducir un número válido.");
+            }
         }
-        if (asientosStr <= 10) {
+        if (asientosStr <= 30) {
             System.out.println("Solicitud para grupo pequeño. Buscando Jets Privados ligeros...");
             tipoAvion = "Privado";
         } else if (asientosStr <= 100) {
@@ -374,7 +382,6 @@ public class VistaVuelo {
 
         String fecha = solicitarfecha();
 
-        Double precio = solicitarPrecio();
 
         Avion avion = null;
         while (avion == null) {
@@ -389,13 +396,15 @@ public class VistaVuelo {
 
         String idVuelo = generarIdVueloPrivado(avion.getIdAvion(), usuario );
 
-        VueloPrivado nuevoVuelo = new VueloPrivado(idVuelo, avion, lugarSalida, lugarDestino, fecha, precio);
+        VueloPrivado nuevoVuelo = new VueloPrivado(idVuelo, avion, lugarSalida, lugarDestino, fecha);
         boolean vueloAñadido = vueloController.addVueloPrivado(nuevoVuelo);
 
         if(!vueloAñadido){
             return -10;
         }
         avion.setDisponible(false);
+        usuarioController.addReservaVueloPrivado(usuario, nuevoVuelo);
+
         return 0;
 
     }
