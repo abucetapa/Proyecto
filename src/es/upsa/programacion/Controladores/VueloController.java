@@ -2,29 +2,28 @@ package es.upsa.programacion.Controladores;
 
 import es.upsa.programacion.Modelos.*;
 
-import javax.swing.text.View;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 
 
 public class VueloController {
     private List<Vuelo> vuelos;
     private Agencia agencia;
-    private List<Usuario> usuarios;
+    private Map<String,Usuario> usuariosMap;
 
     public VueloController(Agencia agencia) {
         this.agencia = agencia;
         this.vuelos = agencia.getVuelos();
-        this.usuarios = agencia.getUsuarios();
+        this.usuariosMap = agencia.getUsuariosMap();
+
 
     }
 
     // Añadir vuelo
     public boolean addVueloComercial(Vuelo vuelo) {
         // Comprueba que todos los parametros no son nulos
-        if(vuelo instanceof VueloComercial){
-            VueloComercial vc = (VueloComercial) vuelo;
+        if(vuelo instanceof VueloComercial vc){
             if (vc.getIdVuelo() != null &&
                     vc.getsalida() != null &&
                     vc.getdestino() != null &&
@@ -42,8 +41,7 @@ public class VueloController {
     }
     public boolean addVueloPrivado(Vuelo vuelo) {
         // Comprueba que todos los parametros no son nulos
-        if(vuelo instanceof VueloPrivado){
-            VueloPrivado vc = (VueloPrivado) vuelo;
+        if(vuelo instanceof VueloPrivado vc){
             if (vc.getIdVuelo() != null &&
                     vc.getsalida() != null &&
                     vc.getdestino() != null &&
@@ -125,7 +123,7 @@ public class VueloController {
         if (vuelos.isEmpty()) { // Array de vuelos vacío
             return -5;
         }
-        vuelos.sort((v1, v2) -> v1.getIdVuelo().compareTo(v2.getIdVuelo())); //Ordena los vuelos
+        vuelos.sort(Comparator.comparing(Vuelo::getIdVuelo)); //Ordena los vuelos
         for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
             System.out.println(v); //Muestra datos del vuelo
         }
@@ -139,7 +137,7 @@ public class VueloController {
         if (vuelos.isEmpty()) { // Array de vuelos vacío
             return -5;
         }
-        vuelos.sort((v1, v2) -> v1.getIdVuelo().compareTo(v2.getIdVuelo())); //Ordena los vuelos
+        vuelos.sort(Comparator.comparing(Vuelo::getIdVuelo)); //Ordena los vuelos
         for (Vuelo v : vuelos) { // Recorre Array de vuelos del Cliente
             System.out.println(v  + "\tAvion: " + v.getAvion().getIdAvion()); //Muestra datos del vuelo
         }

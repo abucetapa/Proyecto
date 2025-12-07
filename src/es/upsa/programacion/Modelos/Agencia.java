@@ -1,19 +1,29 @@
 package es.upsa.programacion.Modelos;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Agencia {
 
+
     private ArrayList<Avion> aviones;
     private ArrayList<Vuelo> vuelos;
-    private ArrayList<Usuario> usuarios;
+    private Map<String, Usuario> usuariosMap;
+
+    //Mapas para busquedas rapidas
+    private Map<String, Cliente> dniClientesMap;
+    private Map<String, Cliente> emailClientesMap;
+    private Map<String,Cliente> telefonoClientesMap;
 
     public Agencia(){
         this.aviones = new ArrayList<>();
         this.vuelos = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
+        this.usuariosMap = new HashMap<>();
+        this.dniClientesMap = new HashMap<>();
+        this.emailClientesMap = new HashMap<>();
+        this.telefonoClientesMap = new HashMap<>();
     }
     public ArrayList<Avion> getAviones() {
         return aviones;
@@ -48,8 +58,20 @@ public class Agencia {
     public ArrayList<Vuelo> getVuelos() {
         return vuelos;
     }
-    public ArrayList<Usuario> getUsuarios() {
-        return usuarios;
+    public Map<String,Usuario> getUsuariosMap() {
+        return usuariosMap;
+    }
+    public Map<String, Cliente> getDniClientesMap() {
+        return dniClientesMap;
+    }
+    public Map<String, Cliente> getEmailClientesMap() {
+        return emailClientesMap;
+    }
+    public Map<String, Cliente> getTelefonoClientesMap() {
+        return telefonoClientesMap;
+    }
+    public ArrayList<Usuario> getUsuariosMapList() {
+        return new ArrayList<>(usuariosMap.values());
     }
 
     //funcion añadirVuelo
@@ -57,17 +79,20 @@ public class Agencia {
 
     public void addCliente(String idUser, String nombre, String dni, String password, String email, String telefono){
 
-        Cliente nuevoCliente = new Cliente(idUser, nombre, dni, password, email, telefono);
+        if(!usuariosMap.containsKey(idUser)) {
+            Cliente nuevoCliente = new Cliente(idUser, nombre, dni, password, email, telefono);
+            usuariosMap.put(idUser, nuevoCliente);
 
-        if(!usuarios.contains(nuevoCliente)) {
-            usuarios.add(nuevoCliente);
+            dniClientesMap.put(dni, nuevoCliente);
+            emailClientesMap.put(email, nuevoCliente);
+            telefonoClientesMap.put(telefono, nuevoCliente);
         }
     }
 
     public void addAdmin(String idUser, String password){
-        Administrador administrador = new Administrador(idUser, password);
-        if(!usuarios.contains(administrador)){
-            usuarios.add(administrador);
+        if(!usuariosMap.containsKey(idUser)) {
+            Administrador administrador = new Administrador(idUser, password);
+            usuariosMap.put(idUser,administrador);
         }
     }
 

@@ -29,17 +29,8 @@ public class VistaVuelo {
 
 
     public String generarIdVuelo(String tipo, String idAvion) {
-        String siglas = null;
 
-        Avion avion = avionController.buscarAvionId(idAvion);
-        String[] sufijo = avion.getCompañia().trim().split("\\s+");
-
-        if(sufijo.length == 2){
-            siglas = String.valueOf(sufijo[0].charAt(0)).toUpperCase() + String.valueOf(sufijo[1].charAt(0)).toUpperCase();
-        }
-        if(sufijo.length == 1){
-            siglas = sufijo[0].substring(0, 2).toUpperCase();
-        }
+        String siglas = generarSufijoId(idAvion);
 
         int numeroAleatorio = (int) (Math.random() * 9999) + 1;
         if (tipo.equals("I")) {
@@ -50,17 +41,8 @@ public class VistaVuelo {
     }
 
     public String generarIdVueloPrivado(String idAvion, Usuario usuario) {
-        String siglas = null;
 
-        Avion avion = avionController.buscarAvionId(idAvion);
-        String[] sufijo = avion.getCompañia().trim().split("\\s+");
-
-        if(sufijo.length == 2){
-            siglas = String.valueOf(sufijo[0].charAt(0)).toUpperCase() + String.valueOf(sufijo[1].charAt(0)).toUpperCase();
-        }
-        if(sufijo.length == 1){
-            siglas = sufijo[0].substring(0, 2).toUpperCase();
-        }
+         String siglas = generarSufijoId(idAvion);
 
         int numeroAleatorio = (int) (Math.random() * 9999) + 1;
         return "P" + siglas + numeroAleatorio + usuario.getIdUser();
@@ -375,9 +357,7 @@ public class VistaVuelo {
                 }
             }
 
-            if (!destinoValido) {
-                System.out.println("Error: Destino no válido. Por favor, elija uno de la lista mostrada.");
-            }
+
 
 
         String fecha = solicitarfecha();
@@ -445,6 +425,21 @@ public class VistaVuelo {
             }
         }
         return precio;
+    }
+
+    public String generarSufijoId(String idAvion){
+        String siglas = null;
+
+        Avion avion = avionController.buscarAvionId(idAvion);
+        String[] sufijo = avion.getCompañia().trim().split("\\s+");
+
+        if(sufijo.length == 2){
+            siglas = String.valueOf(sufijo[0].charAt(0)).toUpperCase() + String.valueOf(sufijo[1].charAt(0)).toUpperCase();
+        }
+        if(sufijo.length == 1){
+            siglas = sufijo[0].substring(0, 2).toUpperCase();
+        }
+        return siglas;
     }
 
 

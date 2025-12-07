@@ -11,14 +11,14 @@ import java.util.List;
 
 public class VistaUsuario {
     private UsuarioController usuarioController;
-    Scanner sc;
     private Agencia agencia;
     private List<Usuario> usuarios;
+    Scanner sc ;
 
     public VistaUsuario(Agencia agencia) {
         this.agencia = agencia;
         this.usuarioController = new UsuarioController(agencia);
-        this.usuarios = agencia.getUsuarios();
+        this.usuarios = agencia.getUsuariosMapList();
         this.sc = new Scanner(System.in);
     }
 
@@ -161,7 +161,7 @@ public class VistaUsuario {
     // Generar id aleatorio
     public String generarNuevoIdCliente() {
         // Solicitamos el Array de usuarios
-        List<Usuario> usuarios = agencia.getUsuarios();
+        List<Usuario> usuarios = agencia.getUsuariosMapList();
 
         String nuevoId;
         boolean idExiste;
@@ -183,9 +183,10 @@ public class VistaUsuario {
 
         return nuevoId;
     }
+
     public String generarNuevoIdAdmin() {
         // Solicitamos el Array de usuarios
-        List<Usuario> usuarios = agencia.getUsuarios();
+        List<Usuario> usuarios = agencia.getUsuariosMapList();
 
         String nuevoId;
         boolean idExiste;

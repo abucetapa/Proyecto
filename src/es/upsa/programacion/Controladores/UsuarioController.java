@@ -2,22 +2,32 @@ package es.upsa.programacion.Controladores;
 
 import es.upsa.programacion.Modelos.*;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class UsuarioController {
-    private List<Usuario> usuarios;
+    private Map<String,Usuario> usuariosMap;
+    private Map<String, Cliente> dniClientesMap;
+    private Map<String, Cliente> emailClientesMap;
+    private Map<String,Cliente> telefonoClientesMap;
 
     public UsuarioController(Agencia agencia){
-        this.usuarios = agencia.getUsuarios();
+        this.usuariosMap = agencia.getUsuariosMap();
+        this.dniClientesMap = agencia.getDniClientesMap();
+        this.emailClientesMap = agencia.getEmailClientesMap();
+        this.telefonoClientesMap = agencia.getTelefonoClientesMap();
+
     }
+
+
 
     // Añadir usuario
 
     public boolean addUsuario(Usuario usuario){
         Usuario u = buscarClienteId(usuario.getIdUser());
         if(u == null) {
-            usuarios.add(usuario);
+            usuariosMap.put(usuario.getIdUser(),usuario);
             return true;
         }return false;
     }
@@ -25,56 +35,25 @@ public class UsuarioController {
     // Busqueda usuario por id, dni, email y telefono
     // Devuelven cliente o administrador, dependiendo de la funcion
     public Cliente buscarClienteId(String idUsuario){
-        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
-            if(usuario instanceof Cliente cliente) { // Comprueba que usuario es un cliente
-                if (usuario.getIdUser().equals(idUsuario)) {
-                    return cliente;
-                }
-            }
-        }
-        return null;
+        return dniClientesMap.get(idUsuario);
     }
 
     public Cliente buscarClienteEmail(String email){
-        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
-            if(usuario instanceof Cliente cliente) {// Comprueba que usuario es un cliente
-                if (cliente.getEmail().equals(email)){
-                    return cliente;
-                }
-            }
-        }
-        return null;
+        return emailClientesMap.get(email);
     }
 
     public Cliente buscarClienteTelefono(String telefono){
-        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
-            if(usuario instanceof Cliente cliente) {// Comprueba que usuario es un cliente
-                if (cliente.getTelefono().equals(telefono)){
-                    return cliente;
-                }
-            }
-        }
-        return null;
+        return telefonoClientesMap.get(telefono);
     }
 
     public Cliente buscarClienteDni(String dni){
-        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
-            if(usuario instanceof Cliente cliente) { // Comprueba que usuario es un cliente
-                if (cliente.getDni().equals(dni)){
-                    return cliente;
-                }
-            }
-        }
-        return null;
+        return dniClientesMap.get(dni);
     }
 
     public Administrador buscarAdminId(String idUsuario){
-        for(Usuario usuario : usuarios){ //Itera en lista de usuarios
-            if(usuario instanceof Administrador administrador) { //Comprueba que usuario es administrador
-                if (administrador.getIdUser().equals(idUsuario)){
-                    return administrador;
-                }
-            }
+        Usuario u = usuariosMap.get(idUsuario);
+        if(u instanceof Administrador){
+            return (Administrador) u;
         }
         return null;
     }
