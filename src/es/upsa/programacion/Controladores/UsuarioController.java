@@ -35,7 +35,7 @@ public class UsuarioController {
     // Busqueda usuario por id, dni, email y telefono
     // Devuelven cliente o administrador, dependiendo de la funcion
     public Cliente buscarClienteId(String idUsuario){
-        return dniClientesMap.get(idUsuario);
+        return (Cliente) usuariosMap.get(idUsuario);
     }
 
     public Cliente buscarClienteEmail(String email){
@@ -59,16 +59,16 @@ public class UsuarioController {
     }
 
     // Añadrir vuelo a las reservas del usuario
-    public boolean addVueloReservado(Usuario idUsuario, Vuelo vuelo, int intNReservas){
-        Cliente cliente = buscarClienteId(idUsuario.getIdUser()); // Busca cliente por su id
+    public boolean addVueloReservado(Usuario usuario, Vuelo vuelo, int intNReservas){
+        Cliente cliente = buscarClienteId(usuario.getIdUser()); // Busca cliente por su id
 
         if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
             return false;
         }
 
         //Comprueba que el numero de asientos disponibles es mayor o igual que el numero de asientos que quiere reservar
-        if(vuelo.getAsientos() < intNReservas) {
-            return false;
+        if (!vuelo.verificarDisponibilidad(intNReservas)) {
+            return false; // No hay sitio
         }
 
         for(int i = 0; i < intNReservas; i++) { // Itera el numero de vuelos que quiere reservar

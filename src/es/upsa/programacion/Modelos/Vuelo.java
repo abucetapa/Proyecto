@@ -2,7 +2,7 @@ package es.upsa.programacion.Modelos;
 
 import java.util.Objects;
 
-public abstract class Vuelo {
+public abstract class Vuelo implements IReservable{
 
     private String idVuelo;
     private Avion avion;
@@ -90,5 +90,10 @@ public abstract class Vuelo {
     @Override
     public int hashCode() { return Objects.hash(idVuelo); }
 
+    @Override
+    public boolean verificarDisponibilidad(int asientosRequeridos) {
+        // Devuelve true si la capacidad actual es suficiente
+        return this.asientos >= asientosRequeridos;
+    }
 
 }
