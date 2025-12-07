@@ -69,7 +69,7 @@ public class Menu {
             //de error si hay
             switch (opcion) {
                 case 1:
-                    this.error(vistaVuelo.buscarVueloVistaId());
+                    buscarVuelosLogOut();
                     break;
                 case 2:
                     this.error(vueloController.mostrarVuelos());
@@ -104,6 +104,91 @@ public class Menu {
 
     }
 
+    public void buscarVuelosLogOut(){
+        int opcion;
+
+        do {
+            System.out.println("\n***BUSCAR VUELO***");
+            System.out.println("1. Buscar vuelo por Id");
+            System.out.println("2. Buscar vuelo por lugar de salida");
+            System.out.println("3. Buscar vuelo por lugar de destino");
+
+            System.out.println("0. Salir");
+
+            // Comprobamos que la opción insertada es correcta
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
+
+            //Se procesa la opción seleccionada segun la opción que muestre el menu con su correspondiente codigo
+            //de error si hay
+            switch (opcion) {
+                case 1:
+                    this.error(vistaVuelo.buscarVueloVistaId());
+                    break;
+                case 2:
+                    this.error(vistaVuelo.buscarVueloVistaSalida());
+                    break;
+                case 3:
+                    this.error(vistaVuelo.buscarVueloVistaDestino());
+                    break;
+                case 0:
+                    mostrarMenu(null);
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
+
+            }
+        }while(opcion != 0);
+    }
+
+    public void buscarVuelosLogIn(Usuario usuario){
+        int opcion;
+
+        do {
+            System.out.println("\n***BUSCAR VUELO***");
+            System.out.println("1. Buscar vuelo por Id");
+            System.out.println("2. Buscar vuelo por lugar de salida");
+            System.out.println("3. Buscar vuelo por lugar de destino");
+
+            System.out.println("0. Salir");
+
+            // Comprobamos que la opción insertada es correcta
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
+
+            //Se procesa la opción seleccionada segun la opción que muestre el menu con su correspondiente codigo
+            //de error si hay
+            switch (opcion) {
+                case 1:
+                    Vuelo vuelo = vistaVuelo.buscarVueloVistaObjeto();
+                    if(vuelo!=null){
+                        menuVuelo(usuario, vuelo);
+                    }else this.error(-1);
+                    break;
+                case 2:
+                    this.error(vistaVuelo.buscarVueloVistaSalida());
+                    break;
+                case 3:
+                    this.error(vistaVuelo.buscarVueloVistaDestino());
+                    break;
+                case 0:
+                    mostrarMenu(usuario);
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
+
+            }
+        }while(opcion != 0);
+    }
+
     public void mostrarMenuLogIn(Usuario usuario){
         int opcion;
 
@@ -126,11 +211,7 @@ public class Menu {
 
             switch (opcion) {
                 case 1:
-                    // Guarda en vuelo el vuelo que encuentre en buscarVueloVistaObjeto, el cual devuelve un vuelo
-                    Vuelo vuelo = vistaVuelo.buscarVueloVistaObjeto();
-                    if(vuelo!=null){
-                        menuVuelo(usuario, vuelo);
-                    }else this.error(-1);
+                    buscarVuelosLogIn(usuario);
                     break;
                 case 2:
                     // Muestra todos los vuelos que tiene reservado el cliente
@@ -286,6 +367,8 @@ public class Menu {
             case -10:
                 System.out.println("ERROR. No se ha podido reservar el vuelo.");
                 break;
+            case -11:
+                System.out.println("ERROR. No hay vuelos que cuadren con el criterio de búsqueda.");
             case 0:
                 break;
             default:

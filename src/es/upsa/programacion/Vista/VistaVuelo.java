@@ -7,6 +7,7 @@ import es.upsa.programacion.Modelos.*;
 import es.upsa.programacion.Menu;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class VistaVuelo {
@@ -232,6 +233,48 @@ public class VistaVuelo {
         }
 
     }
+
+    public int buscarVueloVistaSalida(){
+        System.out.println("Ingrese lugar de salida");
+        String salida = sc.nextLine(); // Recogemos la salida insertada por consola
+
+        List<Vuelo> listaSalidas = vueloController.buscarVuelosPorSalida(salida); // Función de controlador busca el vuelo por id
+
+        if(listaSalidas == null){
+            return -11;
+        }else {
+            System.out.println("Vuelos con salida desde: " + salida);
+            for(Vuelo v : listaSalidas){
+                System.out.println(v);
+            }
+            return 0;
+        }
+
+    }
+
+    public int buscarVueloVistaDestino(){
+        System.out.println("Ingrese lugar de destino");
+        String destino  = sc.nextLine(); // Recogemos la salida insertada por consola
+
+        List<Vuelo> listaDestino= vueloController.buscarVuelosPorDestino(destino); // Función de controlador busca el vuelo por id
+
+
+
+        if(listaDestino == null){
+            return -11;
+        }else {
+            System.out.println("Vuelos con salida desde: " + destino);
+            for(Vuelo v : listaDestino){
+                System.out.println(v);
+            }
+            return 0;
+        }
+
+    }
+
+
+
+
     // Funcion busqueda que devuelve tipo vuelo
     public Vuelo buscarVueloVistaObjeto(){
         System.out.println("Ingrese el id del vuelo");

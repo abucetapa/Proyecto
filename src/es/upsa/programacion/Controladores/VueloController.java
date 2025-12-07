@@ -2,9 +2,7 @@ package es.upsa.programacion.Controladores;
 
 import es.upsa.programacion.Modelos.*;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class VueloController {
@@ -183,5 +181,24 @@ public class VueloController {
         return 0;
     }
 
+    public List<Vuelo> buscarVuelosPorSalida(String salida) {
+        List<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo v : vuelos) {
+            if (v.getsalida().equalsIgnoreCase(salida)) { // equalsIgnoreCase para ignorar mayús/minús
+                resultados.add(v);
+            }
+        }
+        return resultados;
+    }
+
+    public List<Vuelo> buscarVuelosPorDestino(String destino) {
+        List<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo v : vuelos) {
+            if (v.getdestino().equalsIgnoreCase(destino)) {
+                resultados.add(v);
+            }
+        }
+        return resultados;
+    }
 
 }
