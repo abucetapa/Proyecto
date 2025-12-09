@@ -311,7 +311,7 @@ public class VistaVuelo {
         System.out.println("--RESERVA DE VUELO PRIVADO--");
 
         String tipoAvion = "";
-        String[] destinosPermitidos = {"Madrid", "Barcelona", "Sevilla", "Santiago de Compostela", "Santander", "Valencia"};
+        String[] lugaresPermitidos = {"Madrid", "Barcelona", "Sevilla", "Santiago de Compostela", "Santander", "Valencia"};
 
         Integer asientosStr = null;
         while (asientosStr == null) {
@@ -361,10 +361,10 @@ public class VistaVuelo {
                 System.out.println("Error: El lugar de destino no puede estar vacío.");
             } else {
                 // Recorremos la lista de permitidos para ver si coincide
-                for (String destino : destinosPermitidos) {
+                for (String salida : lugaresPermitidos) {
                     // equalsIgnoreCase permite que funcione si escriben "madrid" o "MADRID"
-                    if (destino.equalsIgnoreCase(lugarSalida)) {
-                        lugarSalida = destino;
+                    if (salida.equalsIgnoreCase(lugarSalida)) {
+                        lugarSalida = salida;
                         salidaValida = true;
                         break; // Salimos del for
                     }
@@ -389,7 +389,7 @@ public class VistaVuelo {
                     System.out.println("Error: El lugar de destino no puede estar vacío.");
                 } else {
                     // Recorremos la lista de permitidos para ver si coincide
-                    for (String destino : destinosPermitidos) {
+                    for (String destino : lugaresPermitidos) {
                         // equalsIgnoreCase permite que funcione si escriben "madrid" o "MADRID"
                         if (destino.equalsIgnoreCase(lugarDestino)) {
                             lugarDestino = destino;

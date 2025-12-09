@@ -196,7 +196,7 @@ public class Menu {
             System.out.println("\n***MENU***");
             System.out.println("1. Buscar vuelo");
             System.out.println("2. Mostrar vuelos");
-            System.out.println("3. ");
+            System.out.println("3. Solicitar vuelo privado");
             System.out.println("4. Mis billetes");
             System.out.println("5. Perfil");
             System.out.println("6. Cerrar sesion");
@@ -224,8 +224,10 @@ public class Menu {
                     System.out.println("**MIS BILLETES**");
                     this.error(vistaUsuario.mostrarMisBilletes(usuario));
                     break;
-
                 case 5:
+                    this.error(vistaUsuario.mostrarDatosUsuario(usuario));
+                    break;
+                case 6:
                     // Cerramos sesión y se muestra el MenuLogOut
                     System.out.println("Cerrando sesión.......");
                     mostrarMenu(null);
@@ -252,8 +254,8 @@ public class Menu {
             System.out.println("2. Añadir vuelo");
             System.out.println("3. Modificar vuelo");
             System.out.println("4. Eliminar vuelo");
-            System.out.println("5. Cerrar sesion");
-            System.out.println("6. Mostrar vuelos //Borrar para final ");
+            System.out.println("5. Mostrar vuelos ");
+            System.out.println("6. Cerrar sesion");
             System.out.println("0. Salir");
 
             try {
@@ -280,11 +282,11 @@ public class Menu {
                     this.error(vistaVuelo.eliminarVueloVista());
                     break;
                 case 5:
-                    System.out.println("Cerrando sesión.......");
-                    mostrarMenu(null);
+                    this.error(vueloController.mostrarVuelosAdmin());
                     break;
                 case 6:
-                    this.error(vueloController.mostrarVuelosAdmin());
+                    System.out.println("Cerrando sesión.......");
+                    mostrarMenu(null);
                     break;
                 case 0:
                     break;
@@ -369,6 +371,8 @@ public class Menu {
                 break;
             case -11:
                 System.out.println("ERROR. No hay vuelos que cuadren con el criterio de búsqueda.");
+            case -12:
+                System.out.println("ERROR. Datos del usuario no disponibles.");
             case 0:
                 break;
             default:

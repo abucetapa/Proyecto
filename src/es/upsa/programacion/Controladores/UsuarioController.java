@@ -22,11 +22,18 @@ public class UsuarioController {
     // Añadir usuario
 
     public boolean addUsuario(Usuario usuario){
-        Usuario u = buscarClienteId(usuario.getIdUser());
-        if(u == null) {
-            usuariosMap.put(usuario.getIdUser(),usuario);
-            return true;
-        }return false;
+        if(usuariosMap.containsKey(usuario.getIdUser())) {
+            return false;
+        }
+        usuariosMap.put(usuario.getIdUser(),usuario);
+
+        if (usuario instanceof Cliente c) {
+            dniClientesMap.put(c.getDni(), c);
+            emailClientesMap.put(c.getEmail(), c);
+            telefonoClientesMap.put(c.getTelefono(), c);
+        }
+        return true;
+
     }
 
     // Busqueda usuario por id, dni, email y telefono

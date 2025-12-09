@@ -6,6 +6,7 @@ import es.upsa.programacion.Modelos.Cliente;
 import es.upsa.programacion.Modelos.Usuario;
 import es.upsa.programacion.Modelos.Vuelo;
 
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.List;
 
@@ -63,17 +64,19 @@ public class VistaUsuario {
         // Pide cada uno de los valores que debe insertar, ninguno de los valores puede ser nulo
         String dni = "";
         boolean validez = false;
-        while (dni.isEmpty() || validez == false) {
+        while (dni.isEmpty() || !validez) {
             System.out.println("Ingrese su DNI:");
             dni = sc.nextLine().trim();
+            dni = dni.toUpperCase();
             validez = comprobarDniValido(dni);
             if (dni.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un DNI válido.");
         }
 
         String nombre = "";
-        while (nombre.isEmpty() || nombre.split("\\s+").length < 2) {
+        while (nombre.isEmpty() || nombre.split("\\s+").length < 2 ) {
             System.out.println("Ingrese su nombre:");
             nombre = sc.nextLine().trim();
+
             if (nombre.isEmpty()){
                 System.out.println("Campo obligatorio. Por favor, ingrese un nombre válido.");
             } else if (nombre.split("\\s+").length < 2) {
@@ -82,9 +85,10 @@ public class VistaUsuario {
         }
 
         String email = "";
-        while (email.isEmpty()) {
+        while (email.isEmpty() || !validez) {
             System.out.println("Ingrese su email:");
             email = sc.nextLine().trim();
+            validez = comprobarEmailValido(email);
             if (email.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un email.");
         }
 
@@ -96,9 +100,10 @@ public class VistaUsuario {
         }
 
         String telefono = "";
-        while (telefono.isEmpty()) {
+        while (telefono.isEmpty() || !validez) {
             System.out.println("Ingrese su teléfono:");
             telefono = sc.nextLine().trim();
+            validez = comprobarTlfValido(telefono);
             if (telefono.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un teléfono válido.");
         }
 
@@ -110,7 +115,7 @@ public class VistaUsuario {
         //Añade el cliente al Array de Usuarios
         boolean usuarioAñadido = usuarioController.addUsuario(cliente);
 
-        if (usuarioAñadido) {
+        if(usuarioAñadido) {
             System.out.println(" Usuario registrado correctamente.");
             return 0;
         } else {
@@ -142,13 +147,14 @@ public class VistaUsuario {
     //Mostrar usuarios
     public int mostrarUsuarios(){
         System.out.println("**Usuarios**");
+        this.usuarios = agencia.getUsuariosMapList(); // Volvemos a cargar los usuarios
 
         // Array usuarios no vacío
         if (usuarios == null || usuarios.isEmpty()) {
             return -5;
         }
 
-        usuarios.sort((v1, v2) -> v1.getIdUser().compareTo(v2.getIdUser())); //Ordena los vuelos
+        usuarios.sort(Comparator.comparing(Usuario::getIdUser)); //Ordena los vuelos
             // Iteramos en array de usuarios y mostramos
         for (Usuario u : usuarios) {
             System.out.println(u);
@@ -156,6 +162,32 @@ public class VistaUsuario {
         return 0;
 
 
+    }
+
+    // Mostrar datos del perfil del usuario
+    public int mostrarDatosUsuario(Usuario usuario) {
+
+        // Validación de seguridad
+        if (usuario == null) {
+            return -12; // Código de error: Usuario no encontrado
+        }
+
+        System.out.println("\n=== MI PERFIL ===");
+        System.out.println("ID Usuario:   " + usuario.getIdUser());
+
+        // Mostramos datos específicos según el tipo de usuario
+        if (usuario instanceof Cliente) {
+            Cliente c = (Cliente) usuario;
+            System.out.println("Nombre:       " + c.getNombre());
+            System.out.println("DNI:          " + c.getDni());
+            System.out.println("Email:        " + c.getEmail());
+            System.out.println("Teléfono:     " + c.getTelefono());
+            System.out.println("Reservas:     " + c.getReservados().size() + " vuelos");
+        } else {
+            System.out.println("Tipo:         Administrador");
+        }
+
+        return 0; // 0 = Todo correcto
     }
 
     // FUNCION AUXILIAR
@@ -213,6 +245,39 @@ public class VistaUsuario {
     }
 
     public boolean comprobarDniValido(String dni) {
+
+        if(dni.length() != 9 ) return false;
+
+        if (usuarioController.buscarClienteDni(dni) != null) {
+            System.out.println("Error: Ese DNI ya está registrado.");
+            return false;
+        }
+
+        for(int i = 0; i < dni.length() - 1; i++ ){
+            if(!Character.isDigit(dni.charAt(i))) return false;
+        }
+        return Character.isLetter(dni.charAt(dni.length() - 1));
+    }
+
+    public boolean comprobarTlfValido(String tlf) {
+        if(tlf.length() != 9 ) return false;
+
+        if (usuarioController.buscarClienteTelefono(tlf) != null) {
+            System.out.println("Error: Ese teléfono ya está registrado.");
+            return false;
+        }
+
+        for(int i = 0; i < tlf.length() - 1; i++ ){
+            if(!Character.isDigit(tlf.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    public boolean comprobarEmailValido(String email) {
+
+        String gmailValido = "[a-zA-Z0-9._]+@(gmail|hotmail).(com|es)$";
+
+        return email.matches(gmailValido);
 
     }
 }

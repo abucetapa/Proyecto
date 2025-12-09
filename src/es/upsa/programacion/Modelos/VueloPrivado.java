@@ -40,6 +40,6 @@ public class VueloPrivado extends Vuelo {
     }
     @Override
     public String toString() {
-        return super.toString() + " [PRIVADO] T:" + terminal + " P:" + puertaEmb + " | Precio: " + precio + "€";
+        return super.toString() + " [PRIVADO] T:" + " | Precio: " + precio + "€";
     }
 }

@@ -35,6 +35,13 @@ public abstract class Vuelo implements IReservable{
     public void setAvion(Avion avion) {
         this.avion = avion;
     }
+    public String getCompania() {
+        return compania;
+    }
+
+    public void setCompania(String compania) {
+        this.compania = compania;
+    }
     public String getsalida() {
         return salida;
     }

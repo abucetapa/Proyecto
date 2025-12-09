@@ -53,22 +53,21 @@ public class Cliente extends Usuario {
     @Override
     public String toString() {
         //Caso 1: El usuario con dni xq no tiene ningún vuelo asociado
+        StringBuilder resultado = new StringBuilder(nombre + " ( Dni: " + dni + " Teléfono: " + telefono + "): ");
         if (reservados.isEmpty()) {
-            return nombre + " id:" + getIdUser() + " (" + dni + "): con ningún vuelo asociado";
+            return resultado + " con ningún vuelo asociado";
         } else {
             //Caso 2: El usuario tiene uno o más vuelos asociados
-            String resultado = nombre + " (" + dni + "): ";
+
             for (int i = 0; i < reservados.size(); i++) {
                 Vuelo vuelo = reservados.get(i);
-                resultado = resultado + vuelo.getIdVuelo() + " (" +
-                        vuelo.getsalida() + "→" + vuelo.getAsientos() +
-                        ", fecha " + vuelo.getfecha() + ")";
+                resultado.append("\n\t").append(vuelo.getIdVuelo()).append(" (").append(vuelo.getCompania()).append(vuelo.getsalida()).append("→").append(vuelo.getdestino()).append(", fecha ").append(vuelo.getfecha()).append(")");
 
                 if (i < reservados.size() - 1) {
-                    resultado = resultado + ", ";
+                    resultado.append(", ");
                 }
             }
-            return resultado;
+            return resultado.toString();
         }
     }
 
