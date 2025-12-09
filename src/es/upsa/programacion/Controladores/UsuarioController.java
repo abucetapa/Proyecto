@@ -19,9 +19,6 @@ public class UsuarioController {
         this.telefonoClientesMap = agencia.getTelefonoClientesMap();
 
     }
-
-
-
     // Añadir usuario
 
     public boolean addUsuario(Usuario usuario){

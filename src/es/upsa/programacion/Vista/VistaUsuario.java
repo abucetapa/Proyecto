@@ -62,9 +62,11 @@ public class VistaUsuario {
 
         // Pide cada uno de los valores que debe insertar, ninguno de los valores puede ser nulo
         String dni = "";
-        while (dni.isEmpty()) {
+        boolean validez = false;
+        while (dni.isEmpty() || validez == false) {
             System.out.println("Ingrese su DNI:");
             dni = sc.nextLine().trim();
+            validez = comprobarDniValido(dni);
             if (dni.isEmpty()) System.out.println("Campo obligatorio. Por favor, ingrese un DNI válido.");
         }
 
@@ -208,5 +210,9 @@ public class VistaUsuario {
         } while (idExiste); // Repetir mientras el ID ya exista
 
         return nuevoId;
+    }
+
+    public boolean comprobarDniValido(String dni) {
+
     }
 }
