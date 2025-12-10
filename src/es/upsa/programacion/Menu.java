@@ -43,7 +43,7 @@ public class Menu {
     }
 
 
-    // MENUS
+    // MENUS LOGOUT, LOGIN Y ADMIN
     public void mostrarMenuLogOut(){
 
         int opcion;
@@ -104,145 +104,6 @@ public class Menu {
 
     }
 
-    public void buscarVuelosLogOut(){
-        int opcion;
-
-        do {
-            System.out.println("\n***BUSCAR VUELO***");
-            System.out.println("1. Buscar vuelo por Id");
-            System.out.println("2. Buscar vuelo por lugar de salida");
-            System.out.println("3. Buscar vuelo por lugar de destino");
-
-            System.out.println("0. Salir");
-
-            // Comprobamos que la opción insertada es correcta
-            try {
-                opcion = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                opcion = -100;
-            }
-
-            //Se procesa la opción seleccionada segun la opción que muestre el menu con su correspondiente codigo
-            //de error si hay
-            switch (opcion) {
-                case 1:
-                    this.error(vistaVuelo.buscarVueloVistaId());
-                    break;
-                case 2:
-                    this.error(vistaVuelo.buscarVueloVistaSalida());
-                    break;
-                case 3:
-                    this.error(vistaVuelo.buscarVueloVistaDestino());
-                    break;
-                case 0:
-                    mostrarMenu(null);
-                    break;
-                default:
-                    System.out.println("Opcion no valida");
-                    break;
-
-            }
-        }while(opcion != 0);
-    }
-
-    public void buscarVuelosLogIn(Usuario usuario){
-        int opcion;
-
-        do {
-            System.out.println("\n***BUSCAR VUELO***");
-            System.out.println("1. Buscar vuelo por Id");
-            System.out.println("2. Buscar vuelo por lugar de salida");
-            System.out.println("3. Buscar vuelo por lugar de destino");
-
-            System.out.println("0. Salir");
-
-            // Comprobamos que la opción insertada es correcta
-            try {
-                opcion = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                opcion = -100;
-            }
-
-            //Se procesa la opción seleccionada segun la opción que muestre el menu con su correspondiente codigo
-            //de error si hay
-            switch (opcion) {
-                case 1:
-                    Vuelo vuelo = vistaVuelo.buscarVueloVistaObjeto();
-                    if(vuelo!=null){
-                        menuVuelo(usuario, vuelo);
-                    }else this.error(-1);
-                    break;
-                case 2:
-                    this.error(vistaVuelo.buscarVueloVistaSalida());
-                    break;
-                case 3:
-                    this.error(vistaVuelo.buscarVueloVistaDestino());
-                    break;
-                case 0:
-                    mostrarMenu(usuario);
-                    break;
-                default:
-                    System.out.println("Opcion no valida");
-                    break;
-
-            }
-        }while(opcion != 0);
-    }
-
-    public void mostrarMenuLogIn(Usuario usuario){
-        int opcion;
-
-        do {
-            System.out.println("\n***MENU***");
-            System.out.println("1. Buscar vuelo");
-            System.out.println("2. Mostrar vuelos");
-            System.out.println("3. Solicitar vuelo privado");
-            System.out.println("4. Mis billetes");
-            System.out.println("5. Perfil");
-            System.out.println("6. Cerrar sesion");
-            System.out.println("0. Salir");
-
-            // Comprobamos que la opción insertada es correcta
-            try {
-                opcion = Integer.parseInt(sc.nextLine()); // ← CAMBIO AQUÍ
-            } catch (NumberFormatException e) {
-                opcion = -100;
-            }
-
-            switch (opcion) {
-                case 1:
-                    buscarVuelosLogIn(usuario);
-                    break;
-                case 2:
-                    // Muestra todos los vuelos que tiene reservado el cliente
-                    vueloController.mostrarVuelosCliente(usuario);
-                    break;
-                case 3:
-                    this.error(vistaVuelo.reservarVueloPrivado(usuario));
-                    break;
-                case 4:
-                    System.out.println("**MIS BILLETES**");
-                    this.error(vistaUsuario.mostrarMisBilletes(usuario));
-                    break;
-                case 5:
-                    this.error(vistaUsuario.mostrarDatosUsuario(usuario));
-                    break;
-                case 6:
-                    // Cerramos sesión y se muestra el MenuLogOut
-                    System.out.println("Cerrando sesión.......");
-                    mostrarMenu(null);
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opcion no valida");
-                    break;
-
-            }
-
-        }while(opcion != 0);
-    }
-
     // Menu autentificacion como administrador
     public void mostrarMenuAdmin(Usuario usuario){
         int opcion;
@@ -299,6 +160,152 @@ public class Menu {
         }while(opcion != 0);
 
     }
+
+
+    public void buscarVuelosLogIn(Usuario usuario){
+        int opcion;
+
+        do {
+            System.out.println("\n***BUSCAR VUELO***");
+            System.out.println("1. Buscar vuelo por Id");
+            System.out.println("2. Buscar vuelo por lugar de salida");
+            System.out.println("3. Buscar vuelo por lugar de destino");
+
+            System.out.println("0. Salir");
+
+            // Comprobamos que la opción insertada es correcta
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
+
+            //Se procesa la opción seleccionada segun la opción que muestre el menu con su correspondiente codigo
+            //de error si hay
+            switch (opcion) {
+                case 1:
+                    Vuelo vuelo = vistaVuelo.buscarVueloVistaObjeto();
+                    if(vuelo!=null){
+                        menuVuelo(usuario, vuelo);
+                    }else this.error(-1);
+                    break;
+                case 2:
+                    this.error(vistaVuelo.buscarVueloVistaSalida());
+                    break;
+                case 3:
+                    this.error(vistaVuelo.buscarVueloVistaDestino());
+                    break;
+                case 0:
+                    mostrarMenu(usuario);
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
+
+            }
+        }while(opcion != 0);
+    }
+
+
+
+    //MENUS AUXILIARES
+    public void buscarVuelosLogOut(){
+        int opcion;
+
+        do {
+            System.out.println("\n***BUSCAR VUELO***");
+            System.out.println("1. Buscar vuelo por Id");
+            System.out.println("2. Buscar vuelo por lugar de salida");
+            System.out.println("3. Buscar vuelo por lugar de destino");
+
+            System.out.println("0. Salir");
+
+            // Comprobamos que la opción insertada es correcta
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
+
+            //Se procesa la opción seleccionada segun la opción que muestre el menu con su correspondiente codigo
+            //de error si hay
+            switch (opcion) {
+                case 1:
+                    this.error(vistaVuelo.buscarVueloVistaId());
+                    break;
+                case 2:
+                    this.error(vistaVuelo.buscarVueloVistaSalida());
+                    break;
+                case 3:
+                    this.error(vistaVuelo.buscarVueloVistaDestino());
+                    break;
+                case 0:
+                    mostrarMenu(null);
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
+
+            }
+        }while(opcion != 0);
+    }
+
+
+    public void mostrarMenuLogIn(Usuario usuario){
+        int opcion;
+
+        do {
+            System.out.println("\n***MENU***");
+            System.out.println("1. Buscar vuelo");
+            System.out.println("2. Mostrar vuelos");
+            System.out.println("3. Solicitar vuelo privado");
+            System.out.println("4. Mis billetes");
+            System.out.println("5. Perfil");
+            System.out.println("6. Cerrar sesion");
+            System.out.println("0. Salir");
+
+            // Comprobamos que la opción insertada es correcta
+            try {
+                opcion = Integer.parseInt(sc.nextLine()); // ← CAMBIO AQUÍ
+            } catch (NumberFormatException e) {
+                opcion = -100;
+            }
+
+            switch (opcion) {
+                case 1:
+                    buscarVuelosLogIn(usuario);
+                    break;
+                case 2:
+                    // Muestra todos los vuelos que tiene reservado el cliente
+                    vueloController.mostrarVuelosCliente(usuario);
+                    break;
+                case 3:
+                    this.error(vistaVuelo.reservarVueloPrivado(usuario));
+                    break;
+                case 4:
+                    System.out.println("**MIS BILLETES**");
+                    this.error(vistaUsuario.mostrarMisBilletes(usuario));
+                    break;
+                case 5:
+                    this.error(vistaUsuario.mostrarDatosUsuario(usuario));
+                    break;
+                case 6:
+                    // Cerramos sesión y se muestra el MenuLogOut
+                    System.out.println("Cerrando sesión.......");
+                    mostrarMenu(null);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
+
+            }
+
+        }while(opcion != 0);
+    }
+
+
 
     public void menuVuelo(Usuario usuario, Vuelo vuelo){
         int accion;
@@ -367,11 +374,8 @@ public class Menu {
                 System.out.println("ERROR. Usuario no encontrado");
                 break;
             case -10:
-                System.out.println("ERROR. No se ha podido reservar el vuelo.");
-                break;
-            case -11:
                 System.out.println("ERROR. No hay vuelos que cuadren con el criterio de búsqueda.");
-            case -12:
+            case -11:
                 System.out.println("ERROR. Datos del usuario no disponibles.");
             case 0:
                 break;

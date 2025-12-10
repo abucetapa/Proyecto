@@ -29,26 +29,7 @@ public class VistaVuelo {
         this.sc = new Scanner(System.in);
     }
 
-
-    public String generarIdVuelo(String tipo, String idAvion) {
-
-        String siglas = generarSufijoId(idAvion);
-
-        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
-        if (tipo.equals("I")) {
-            return "I" + siglas + numeroAleatorio;
-        } else {
-            return "N" + siglas + numeroAleatorio;
-        }
-    }
-
-    public String generarIdVueloPrivado(String idAvion, Usuario usuario) {
-
-         String siglas = generarSufijoId(idAvion);
-
-        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
-        return "P" + siglas + numeroAleatorio + usuario.getIdUser();
-    }
+    // FUNCIONES AÑADIR, ELIMINAR Y MODIFICARº
 
     public int addVueloVista() {
         Scanner scanner = new Scanner(System.in);
@@ -126,7 +107,7 @@ public class VistaVuelo {
         }
 
         // 8. Fecha
-        String fecha = solicitarfecha();
+        String fecha = solicitarFecha();
 
         // 9. Precio (Control de errores numéricos)
         Double precio = solicitarPrecio();
@@ -218,7 +199,6 @@ public class VistaVuelo {
 
     //BUSQUEDA
 
-    //Funcion de busqueda que devuelve int para detención de errores
     public int buscarVueloVistaId(){
         System.out.println("Ingrese el id del vuelo");
         String idVuelo = sc.nextLine(); // Recogemos el id insertado por consola
@@ -287,6 +267,7 @@ public class VistaVuelo {
 
 
     // Funcion busqueda que devuelve tipo vuelo
+
     public Vuelo buscarVueloVistaObjeto(){
         System.out.println("Ingrese el id del vuelo");
         String idVuelo = sc.nextLine(); // Recogemos el id insertado por consola
@@ -302,7 +283,7 @@ public class VistaVuelo {
 
     }
 
-    // Reserva asientos
+    // RESERVA
     public int reservaAsiento(Usuario usuario,String idVuelo){
         Vuelo vuelo = vueloController.buscarVueloId(idVuelo); //Buscamos el vuelo seleccionado
 
@@ -414,7 +395,7 @@ public class VistaVuelo {
 
 
 
-        String fecha = solicitarfecha();
+        String fecha = solicitarFecha();
 
 
         Avion avion = null;
@@ -434,7 +415,7 @@ public class VistaVuelo {
         boolean vueloAñadido = vueloController.addVueloPrivado(nuevoVuelo);
 
         if(!vueloAñadido){
-            return -10;
+            return -7;
         }
         avion.setDisponible(false);
         usuarioController.addReservaVueloPrivado(usuario, nuevoVuelo);
@@ -443,7 +424,7 @@ public class VistaVuelo {
 
     }
 
-    //Funcion muestra los asientos disponibles del vuelo
+    // FUNCIONES AUXILIARES
     public int mostrarDisponibilidad(Vuelo vuelo){
         if(vuelo.getAsientos() == 0){
             return -8;
@@ -453,7 +434,7 @@ public class VistaVuelo {
         return 0;
     }
 
-    public String solicitarfecha(){
+    public String solicitarFecha(){
         String fecha = "";
         while (fecha.isEmpty()) {
             System.out.print("Fecha (ej: DD/MM/YYYY): ");
@@ -480,6 +461,27 @@ public class VistaVuelo {
         }
         return precio;
     }
+
+    public String generarIdVuelo(String tipo, String idAvion) {
+
+        String siglas = generarSufijoId(idAvion);
+
+        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
+        if (tipo.equals("I")) {
+            return "I" + siglas + numeroAleatorio;
+        } else {
+            return "N" + siglas + numeroAleatorio;
+        }
+    }
+
+    public String generarIdVueloPrivado(String idAvion, Usuario usuario) {
+
+        String siglas = generarSufijoId(idAvion);
+
+        int numeroAleatorio = (int) (Math.random() * 9999) + 1;
+        return "P" + siglas + numeroAleatorio + usuario.getIdUser();
+    }
+    
 
     public String generarSufijoId(String idAvion){
         String siglas = null;

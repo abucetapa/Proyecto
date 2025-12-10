@@ -19,7 +19,8 @@ public class UsuarioController {
         this.telefonoClientesMap = agencia.getTelefonoClientesMap();
 
     }
-    // Añadir usuario
+
+    // FUNCIONES AÑADIR
 
     public boolean addUsuario(Usuario usuario){
         if(usuariosMap.containsKey(usuario.getIdUser())) {
@@ -36,8 +37,39 @@ public class UsuarioController {
 
     }
 
-    // Busqueda usuario por id, dni, email y telefono
-    // Devuelven cliente o administrador, dependiendo de la funcion
+    public boolean addVueloReservado(Usuario usuario, Vuelo vuelo, int intNReservas){
+        Cliente cliente = buscarClienteId(usuario.getIdUser()); // Busca cliente por su id
+
+        if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
+            return false;
+        }
+
+        //Comprueba que el numero de asientos disponibles es mayor o igual que el numero de asientos que quiere reservar
+        if (!vuelo.verificarDisponibilidad(intNReservas)) {
+            return false; // No hay sitio
+        }
+
+        for(int i = 0; i < intNReservas; i++) { // Itera el numero de vuelos que quiere reservar
+            cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
+        }
+        vuelo.setAsientos(vuelo.getAsientos() - intNReservas); //Reduce el número de asientos disponibles
+        // para el vuelo
+        return true;
+    }
+
+    public boolean addReservaVueloPrivado(Usuario idUsuario, Vuelo vuelo){
+        Cliente cliente = buscarClienteId(idUsuario.getIdUser()); // Busca cliente por su id
+
+        if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
+            return false;
+        }
+        cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
+
+        return true;
+    }
+
+    // FUNCIONES BUSQUEDA
+
     public Cliente buscarClienteId(String idUsuario){
         return (Cliente) usuariosMap.get(idUsuario);
     }
@@ -61,39 +93,6 @@ public class UsuarioController {
         }
         return null;
     }
-
-    // Añadrir vuelo a las reservas del usuario
-    public boolean addVueloReservado(Usuario usuario, Vuelo vuelo, int intNReservas){
-        Cliente cliente = buscarClienteId(usuario.getIdUser()); // Busca cliente por su id
-
-        if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
-            return false;
-        }
-
-        //Comprueba que el numero de asientos disponibles es mayor o igual que el numero de asientos que quiere reservar
-        if (!vuelo.verificarDisponibilidad(intNReservas)) {
-            return false; // No hay sitio
-        }
-
-        for(int i = 0; i < intNReservas; i++) { // Itera el numero de vuelos que quiere reservar
-            cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
-        }
-        vuelo.setAsientos(vuelo.getAsientos() - intNReservas); //Reduce el número de asientos disponibles
-                                                                     // para el vuelo
-        return true;
-    }
-
-    public boolean addReservaVueloPrivado(Usuario idUsuario, Vuelo vuelo){
-        Cliente cliente = buscarClienteId(idUsuario.getIdUser()); // Busca cliente por su id
-
-        if(cliente == null || vuelo == null) { // Vuelo o usuario no existen
-            return false;
-        }
-        cliente.getReservados().add(vuelo); //Se añade el vuelo al Array de reservados del usuario
-
-        return true;
-    }
-
 
 
 

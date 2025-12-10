@@ -74,8 +74,7 @@ public class Agencia {
         return new ArrayList<>(usuariosMap.values());
     }
 
-    //funcion añadirVuelo
-    //funcion añadirUsuario
+    // FUNCIONES AÑADIR
 
     public void addCliente(String idUser, String nombre, String dni, String password, String email, String telefono){
 
@@ -122,7 +121,7 @@ public class Agencia {
         }
     }
 
-
+    //FUNCION BUSCAR
     public Avion buscarAvionId(String idAvion){
         for(Avion a : aviones){
             if(a.getIdAvion().equals(idAvion)){

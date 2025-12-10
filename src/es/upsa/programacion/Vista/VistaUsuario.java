@@ -40,11 +40,8 @@ public class VistaUsuario {
         if(usuario == null) usuario = usuarioController.buscarClienteEmail(inicioSesion);
         if(usuario == null) usuario = usuarioController.buscarClienteTelefono(inicioSesion);
 
-
-
         if(usuario != null) {
-            System.out.println("Contraseña usuario: " + usuario.getPassword()); // ELiminar para entrega, es para
-                                                                                // visualización en pruebas
+
             System.out.println("Inserte su contraseña:");
             String password = sc.nextLine();
 
@@ -123,6 +120,7 @@ public class VistaUsuario {
         }
     }
 
+    // FUNCION MUESTRA
     // Mostrar billetes del usuario
     public int mostrarMisBilletes(Usuario usuario){
 
@@ -165,6 +163,7 @@ public class VistaUsuario {
     }
 
     // Mostrar datos del perfil del usuario
+
     public int mostrarDatosUsuario(Usuario usuario) {
 
         // Validación de seguridad
@@ -192,7 +191,8 @@ public class VistaUsuario {
 
     // FUNCION AUXILIAR
 
-    // Generar id aleatorio
+    //GENERACIONES ID
+
     public String generarNuevoIdCliente() {
         // Solicitamos el Array de usuarios
         List<Usuario> usuarios = agencia.getUsuariosMapList();
@@ -243,6 +243,8 @@ public class VistaUsuario {
 
         return nuevoId;
     }
+
+    // FUNCIONES COMPROBACION
 
     public boolean comprobarDniValido(String dni) {
 

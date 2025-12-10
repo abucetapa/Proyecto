@@ -17,7 +17,7 @@ public class AvionController {
 
         System.out.println("**AVIONES**");
         if(aviones.isEmpty()){
-            return -10;
+            return -7;
         }
 
         Avion.tipoAvion tipoAnterior = null;

@@ -33,7 +33,7 @@ public class Constructor {
         miAgencia.addAvion(vistaAvion.generarIdAvion("ITA Airways"), "ITA Airways", Avion.tipoAvion.COMERCIAL, "Roma");
         miAgencia.addAvion(vistaAvion.generarIdAvion("EasyJet"), "EasyJet", Avion.tipoAvion.COMERCIAL, "Londres");
 
-        // ========== AVIONES PRIVADOS DE NEGOCIOS (Distribuidos en ciudades clave) ==========
+        // ========== AVIONES PRIVADOS DE NEGOCIOS ==========
         miAgencia.addAvion(vistaAvion.generarIdAvion("NetJets"), "NetJets", Avion.tipoAvion.PRIVADO_GRANDE, "Madrid");
         miAgencia.addAvion(vistaAvion.generarIdAvion("VistaJet"), "VistaJet", Avion.tipoAvion.PRIVADO_GRANDE, "Barcelona");
         miAgencia.addAvion(vistaAvion.generarIdAvion("Flexjet"), "Flexjet", Avion.tipoAvion.PRIVADO_GRANDE, "Marbella");
@@ -51,11 +51,12 @@ public class Constructor {
         miAgencia.addAvion(vistaAvion.generarIdAvion("PrivateFly"), "PrivateFly", Avion.tipoAvion.PRIVADO, "Barcelona");
 
 
+        // INICIALIZACION DE ADMINS Y CLIENTES
         miAgencia.addAdmin(vistaUsuario.generarNuevoIdAdmin(), "12345");
         miAgencia.addCliente(vistaUsuario.generarNuevoIdCliente(),"Antonio", "35601443L","asdf","antonio@upsa.es","666343234");
         miAgencia.addCliente(vistaUsuario.generarNuevoIdCliente(),"Raúl", "05952801X","qwer","rsanchezpe@upsa.es","635214237");
 
-
+        // CREACION DE VUELOS
         String idAvion = miAgencia.getAvionesComerciales().get((int)(Math.random()*miAgencia.getAvionesComerciales().size())).getIdAvion(); // Usamos ID explícito o aleatorio: miAgencia.getAviones().get(...).getIdAvion()
         miAgencia.addVuelo(vistaVuelo.generarIdVuelo("VN", idAvion), idAvion, "Madrid", "Barcelona", "T4", "J45", "20/10/2025", 120.50);
 

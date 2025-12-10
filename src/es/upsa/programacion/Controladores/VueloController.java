@@ -18,7 +18,8 @@ public class VueloController {
 
     }
 
-    // Añadir vuelo
+    // FUNCIONES AÑADIR, ELIMINAR Y MODIFICAR
+
     public boolean addVueloComercial(Vuelo vuelo) {
         // Comprueba que todos los parametros no son nulos
         if(vuelo instanceof VueloComercial vc){
@@ -54,7 +55,6 @@ public class VueloController {
 
     }
 
-    // Modificar vuelo
     public boolean modificarVuelo(String idVuelo, String salida, String destino,
                                   String fecha, Double precio, Integer disponibles) {
 
@@ -91,7 +91,6 @@ public class VueloController {
         return true;
     }
 
-    // Eliminar vuelo
     public boolean eliminarVuelo(String idVuelo) {
 
         Vuelo vueloExiste = buscarVueloId(idVuelo); // Comprueba que el vuelo existe y lo guarda
@@ -103,7 +102,8 @@ public class VueloController {
         return false;
     }
 
-    // Buscar vuelo
+    // FUNCION BUSQUEDA
+
     public Vuelo buscarVueloId(String idVuelo) {
         for (Vuelo v : vuelos) { // Recorre Arraylist de vuelos
             if (v.getIdVuelo().equals(idVuelo)) { // Comprueba que los id coinciden
@@ -112,8 +112,28 @@ public class VueloController {
         }
         return null;
     }
+    public List<Vuelo> buscarVuelosPorSalida(String salida) {
 
-    // Mostrar vuelos
+        List<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo v : vuelos) {
+            if (v.getsalida().equalsIgnoreCase(salida)) { // equalsIgnoreCase para ignorar mayús/minús
+                resultados.add(v);
+            }
+        }
+        return resultados;
+    }
+
+    public List<Vuelo> buscarVuelosPorDestino(String destino) {
+        List<Vuelo> resultados = new ArrayList<>();
+        for (Vuelo v : vuelos) {
+            if (v.getdestino().equalsIgnoreCase(destino)) {
+                resultados.add(v);
+            }
+        }
+        return resultados;
+    }
+
+    // FUNCIONES MOSTRAR
     public int mostrarVuelos() {
         System.out.println("**Vuelos**");
 
@@ -181,6 +201,7 @@ public class VueloController {
         return 0;
     }
 
+    // SET
     public Set<String> getSalidasDisponibles() {
         Set<String> salidas = new HashSet<>();
         for (Vuelo v : vuelos) {
@@ -197,25 +218,6 @@ public class VueloController {
         return destinos;
     }
 
-    public List<Vuelo> buscarVuelosPorSalida(String salida) {
 
-        List<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo v : vuelos) {
-            if (v.getsalida().equalsIgnoreCase(salida)) { // equalsIgnoreCase para ignorar mayús/minús
-                resultados.add(v);
-            }
-        }
-        return resultados;
-    }
-
-    public List<Vuelo> buscarVuelosPorDestino(String destino) {
-        List<Vuelo> resultados = new ArrayList<>();
-        for (Vuelo v : vuelos) {
-            if (v.getdestino().equalsIgnoreCase(destino)) {
-                resultados.add(v);
-            }
-        }
-        return resultados;
-    }
 
 }
