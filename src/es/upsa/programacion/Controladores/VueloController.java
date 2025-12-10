@@ -181,7 +181,24 @@ public class VueloController {
         return 0;
     }
 
+    public Set<String> getSalidasDisponibles() {
+        Set<String> salidas = new HashSet<>();
+        for (Vuelo v : vuelos) {
+            salidas.add(v.getsalida()); // El Set se encarga de no guardar duplicados
+        }
+        return salidas;
+    }
+
+    public Set<String> getDestinosDisponibles() {
+        Set<String> destinos = new HashSet<>();
+        for (Vuelo v : vuelos) {
+            destinos.add(v.getdestino());
+        }
+        return destinos;
+    }
+
     public List<Vuelo> buscarVuelosPorSalida(String salida) {
+
         List<Vuelo> resultados = new ArrayList<>();
         for (Vuelo v : vuelos) {
             if (v.getsalida().equalsIgnoreCase(salida)) { // equalsIgnoreCase para ignorar mayús/minús

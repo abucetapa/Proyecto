@@ -9,6 +9,7 @@ import es.upsa.programacion.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class VistaVuelo {
     private ArrayList<Avion> aviones;
@@ -235,6 +236,11 @@ public class VistaVuelo {
     }
 
     public int buscarVueloVistaSalida(){
+
+        System.out.println("**BUSQUEDA POR SALIDA**");
+        Set<String> salidasDisponibles = vueloController.getSalidasDisponibles();
+        System.out.println("Salidas disponibles: " + salidasDisponibles);
+
         System.out.println("Ingrese lugar de salida");
         String salida = sc.nextLine(); // Recogemos la salida insertada por consola
 
@@ -253,6 +259,11 @@ public class VistaVuelo {
     }
 
     public int buscarVueloVistaDestino(){
+
+        System.out.println("**BUSQUEDA POR DESTINO**");
+        Set<String> destinosDisponibles = vueloController.getDestinosDisponibles();
+
+        System.out.println("Salidas disponibles: " + destinosDisponibles);
         System.out.println("Ingrese lugar de destino");
         String destino  = sc.nextLine(); // Recogemos la salida insertada por consola
 
