@@ -129,7 +129,7 @@ public class VistaVuelo {
         String idVuelo = sc.nextLine();
         boolean eliminarVuelo = vueloController.eliminarVuelo(idVuelo);
         if(!eliminarVuelo){
-            return -2;
+            return -12;
         }
         System.out.println("El vuelo eliminado exitosamente");
         return 0;
@@ -191,7 +191,7 @@ public class VistaVuelo {
         if(modificado){
             return 0; //Vuelo modificado correctamente
         } else {
-            return -8; //Error. No se ha podido modificar el vuelo
+            return -13; //Error. No se ha podido modificar el vuelo
 
         }
 
@@ -345,12 +345,12 @@ public class VistaVuelo {
         String lugarSalida = "";
 
         while (!salidaValida) {
-            System.out.println("Lugares de destino disponibles: Madrid, Barcelona, Sevilla, Santiago de Compostela, Santander y Valencia");
-            System.out.print("Indique el destino: ");
+            System.out.println("Lugares de salida disponibles: Madrid, Barcelona, Sevilla, Santiago de Compostela, Santander y Valencia");
+            System.out.print("Indique la salida: ");
             lugarSalida = sc.nextLine().trim(); // Usamos 'sc' de tu clase VistaVuelo
 
             if (lugarSalida.isEmpty()) {
-                System.out.println("Error: El lugar de destino no puede estar vacío.");
+                System.out.println("Error: El lugar de salida no puede estar vacío.");
             } else {
                 // Recorremos la lista de permitidos para ver si coincide
                 for (String salida : lugaresPermitidos) {
@@ -363,7 +363,7 @@ public class VistaVuelo {
                 }
 
                 if (!salidaValida) {
-                    System.out.println("Error: Destino no válido. Por favor, elija uno de la lista mostrada.");
+                    System.out.println("Error: Salida no válida. Por favor, elija una de la lista mostrada.");
                 }
             }
         }

@@ -54,8 +54,6 @@ public class Menu {
             System.out.println("2. Mostrar vuelos");
             System.out.println("3. Iniciar sesion");
             System.out.println("4. Registrarse");
-            System.out.println("5. Mostrar usuarios //Borrar para final ");//BORRAR
-            System.out.println("6. Mostrar aviones //Borrar para final"); //Borrar
             System.out.println("0. Salir");
 
             // Comprobamos que la opción insertada es correcta
@@ -86,12 +84,6 @@ public class Menu {
                 case 4:
                     // Iniciamos el proceso de registro como Cliente
                     this.error(vistaUsuario.addUsuarioVista());
-                    break;
-                case 5:
-                    this.error(vistaUsuario.mostrarUsuarios());
-                    break;
-                case 6:
-                    this.error(avionController.mostrarAviones());
                     break;
                 case 0:
                     break;
@@ -377,6 +369,13 @@ public class Menu {
                 System.out.println("ERROR. No hay vuelos que cuadren con el criterio de búsqueda.");
             case -11:
                 System.out.println("ERROR. Datos del usuario no disponibles.");
+                break;
+            case -12:
+                System.out.println("ERROR. No se ha podido eliminar el vuelo.");
+                break;
+            case -13:
+                System.out.println("ERROR. No se ha podido modificar el vuelo.");
+                break;
             case 0:
                 break;
             default:

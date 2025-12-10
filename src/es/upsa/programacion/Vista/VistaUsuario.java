@@ -194,6 +194,7 @@ public class VistaUsuario {
     //GENERACIONES ID
 
     public String generarNuevoIdCliente() {
+
         // Solicitamos el Array de usuarios
         List<Usuario> usuarios = agencia.getUsuariosMapList();
 
