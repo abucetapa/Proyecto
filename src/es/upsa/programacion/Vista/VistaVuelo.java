@@ -6,6 +6,9 @@ import es.upsa.programacion.Controladores.VueloController;
 import es.upsa.programacion.Modelos.*;
 import es.upsa.programacion.Menu;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,7 +35,6 @@ public class VistaVuelo {
     // FUNCIONES AÑADIR, ELIMINAR Y MODIFICARº
 
     public int addVueloVista() {
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("=== Añadir nuevo vuelo ===");
 
@@ -45,7 +47,7 @@ public class VistaVuelo {
 
 
 
-        System.out.println("=== Vuelos disponibles ==="); //Mostramos los vuelos disponibles
+        System.out.println("=== Aviones disponibles ==="); //Mostramos los vuelos disponibles
         for(Avion avion: aviones){
             if(avion.isDisponible()){
                 System.out.println(avion);
@@ -114,7 +116,7 @@ public class VistaVuelo {
 
         String idVuelo = generarIdVuelo(tipo,idAvion);
         VueloComercial nuevoVuelo = new VueloComercial(idVuelo, avion, salida, destino,terminal, puertaEmb, fecha, precio);
-        boolean vueloAñadido = vueloController.addVueloPrivado(nuevoVuelo);
+        boolean vueloAñadido = vueloController.addVueloComercial(nuevoVuelo);
 
         if(!vueloAñadido){
             return -2;
@@ -435,13 +437,32 @@ public class VistaVuelo {
     }
 
     public String solicitarFecha(){
-        String fecha = "";
-        while (fecha.isEmpty()) {
-            System.out.print("Fecha (ej: DD/MM/YYYY): ");
-            fecha = sc.nextLine().trim();
-            if (fecha.isEmpty()) System.out.println("Campo obligatorio.");
+        String fechaStr = "";
+        boolean fechaValida = false;
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        while (!fechaValida) {
+            System.out.print("Fecha (ej: dd/MM/yyyy): ");
+            fechaStr = sc.nextLine().trim();
+
+            if (fechaStr.isEmpty()) {
+                System.out.println("Error: Campo obligatorio.");
+                continue;
+            }
+
+            try {
+                LocalDate fechaVuelo = LocalDate.parse(fechaStr, formato);
+                LocalDate hoy = LocalDate.now();
+
+                if (fechaVuelo.isBefore(hoy)) {
+                    System.out.println("Error: La fecha debe ser posterior al día de hoy (" + hoy.format(formato) + ").");
+                }else fechaValida = true;
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Error: Formato inválido. Por favor use dd/MM/yyyy (ej: 25/12/2025).");
+            }
         }
-        return fecha;
+        return fechaStr;
     }
 
     public Double solicitarPrecio(){

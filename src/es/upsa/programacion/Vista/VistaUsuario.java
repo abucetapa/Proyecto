@@ -56,7 +56,6 @@ public class VistaUsuario {
     //Registrar usuario
     public int addUsuarioVista() {
         System.out.println("**Registrarse**");
-        Scanner sc = new Scanner(System.in);
 
         // Pide cada uno de los valores que debe insertar, ninguno de los valores puede ser nulo
         String dni = "";
